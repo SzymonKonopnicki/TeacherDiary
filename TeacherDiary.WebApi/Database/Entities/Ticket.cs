@@ -2,13 +2,13 @@
 {
     public class Ticket
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public double Price { get; set; }
-        public DateTime ValidFrom { get; set; }
-        public DateTime ValidTo { get; set; }
-        public bool Active { get; set; }
-        public int EntryQuantity { get; set; }
-        public int AvailableEntryQuantity { get; set; }
+        public required int Id { get; set; }
+        public required string Name { get; set; }
+        public required double Price { get; set; }
+        public required DateTime ValidFrom { get; set; }
+        public required DateTime ValidTo { get; set; }
+        public required bool Active { get; set; }
+        public required int EntryQuantity { get; set; }
+        public required int AvailableEntryQuantity { get; set; }
     }
 }
