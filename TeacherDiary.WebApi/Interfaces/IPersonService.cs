@@ -10,7 +10,7 @@ namespace TeacherDiary.WebApi.Interfaces
         public void PersonAdd(Person person);
         public void PersonRemoveById(int id);
         public void PersonRemoveByName(string name);
-        public void PersonEdit();
+        public void PersonEdit(Person person);
 
     }
 }
