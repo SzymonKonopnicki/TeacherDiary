@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿// Ignore Spelling: Api
+
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TeacherDiary.WebApi.Database.Entities;
 using TeacherDiary.WebApi.Interfaces;
@@ -27,15 +29,15 @@ namespace TeacherDiary.WebApi.Controllers
             return Ok(persons);
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id:int}")]
         public ActionResult<Person> GetPersonById([FromRoute] int id)
         {
             var person = _personService.PersonById(id);
             return Ok(person);
         }
 
-        [HttpGet("name")]
-        public ActionResult<Person> GetPersonById([FromRoute] string name)
+        [HttpGet("{name}")]
+        public ActionResult<Person> GetPersonByName([FromRoute] string name)
         {
             var person = _personService.PersonByName(name);
             return Ok(person);
@@ -48,14 +50,14 @@ namespace TeacherDiary.WebApi.Controllers
             return Created();
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("{id:int}")]
         public ActionResult PersonDeleteById([FromRoute] int id)
         {
             _personService.PersonRemoveById(id);
             return Ok();
         }
 
-        [HttpDelete("name")]
+        [HttpDelete("{name}")]
         public ActionResult PersonDeleteByName([FromRoute] string name)
         {
             _personService.PersonRemoveByName(name);

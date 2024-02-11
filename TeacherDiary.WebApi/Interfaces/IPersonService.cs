@@ -1,16 +1,19 @@
-﻿using TeacherDiary.WebApi.Database.Entities;
+﻿// Ignore Spelling: Api
+
+using TeacherDiary.WebApi.Database.Dtos;
+using TeacherDiary.WebApi.Database.Entities;
 
 namespace TeacherDiary.WebApi.Interfaces
 {
     public interface IPersonService
     {
-        public ICollection<Person> Persons();
-        public Person PersonById(int id);
-        public Person PersonByName(string name);
-        public void PersonAdd(Person person);
+        public ICollection<PersonDto> Persons();
+        public PersonDto PersonById(int id);
+        public PersonDto PersonByName(string name);
+        public void PersonAdd(PersonCreateDto person);
         public void PersonRemoveById(int id);
         public void PersonRemoveByName(string name);
-        public void PersonEdit(Person person);
+        public void PersonEdit(PersonUpdateDto person);
 
     }
 }

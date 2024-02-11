@@ -1,5 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿// Ignore Spelling: Api Dto
+
+using AutoMapper;
 using TeacherDiary.WebApi.Database;
+using TeacherDiary.WebApi.Database.Dtos;
 using TeacherDiary.WebApi.Database.Entities;
 using TeacherDiary.WebApi.Interfaces;
 
@@ -13,33 +16,47 @@ namespace TeacherDiary.WebApi.Services
     public class PersonService : IPersonService
     {
         private readonly DiaryContext _dbContext;
+        private readonly IMapper _mapper;
 
-        public PersonService(DiaryContext dbContext)
+        public PersonService(DiaryContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
+            _mapper = mapper;
         }
 
-        public ICollection<Person> Persons()
+        public ICollection<PersonDto> Persons()
         {
             var persons = _dbContext.Persons.ToList();
-            return persons;
+
+            var personsDto = _mapper.Map<List<PersonDto>>(persons);
+
+            return personsDto;
         }
 
-        public Person PersonById(int id)
+        public PersonDto PersonById(int id)
         {
             var person = _dbContext.Persons.Where(x => x.Id == id).FirstOrDefault();
-            return person;
+
+            var personDto = _mapper.Map<PersonDto>(person);
+
+            return personDto;
         }
 
-        public Person PersonByName(string name)
+        public PersonDto PersonByName(string name)
         {
-            var person = _dbContext.Persons.Where(x => x.Name.ToLower() == name.ToLower()).FirstOrDefault(); 
-            throw new NotImplementedException();
+            var person = _dbContext.Persons.Where(x => x.Name.ToLower() == name.ToLower()).FirstOrDefault();
+
+            var personDto = _mapper.Map<PersonDto>(person);
+
+            return personDto;
         }
 
-        public void PersonAdd(Person person)
+        public void PersonAdd(PersonCreateDto personCreateDto)
         {
+            var person = _mapper.Map<Person>(personCreateDto);
+
             _dbContext.Persons.Add(person);
+
             _dbContext.SaveChanges();
         }
 
@@ -48,24 +65,24 @@ namespace TeacherDiary.WebApi.Services
             var person = _dbContext.Persons.Where(x => x.Id == id).FirstOrDefault();
             _dbContext.Persons.Remove(person);
         }
-        
+
         public void PersonRemoveByName(string name)
         {
             var person = _dbContext.Persons.Where(x => x.Name == name).FirstOrDefault();
             _dbContext.Persons.Remove(person);
         }
 
-        public void PersonEdit(Person person)
+        public void PersonEdit(PersonUpdateDto personUpdateDto)
         {
-            var personDb = _dbContext.Persons.Where(x => x.Id == person.Id).FirstOrDefault();
+            var personDb = _dbContext.Persons.Where(x => x.Email == personUpdateDto.Email).FirstOrDefault();
 
-            personDb.Name = person.Name;
-            personDb.Surname = person.Surname;
-            personDb.Email = person.Email;
-            personDb.Phone = person.Phone;
-            personDb.Agreement = person.Agreement;
-            personDb.Comments = person.Comments;
-            personDb.Tickets = person.Tickets;
+            personDb.Name = personUpdateDto.Name;
+            personDb.Surname = personUpdateDto.Surname;
+            personDb.Email = personUpdateDto.Email;
+            personDb.Phone = personUpdateDto.Phone;
+            personDb.Agreement = personUpdateDto.Agreement;
+            personDb.Comments = personUpdateDto.Comments;
+            personDb.Tickets = personUpdateDto.Tickets;
         }
     }
 }
