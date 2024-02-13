@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿// Ignore Spelling: Dto Api
+
+using AutoMapper;
 using System.Linq.Expressions;
 using TeacherDiary.WebApi.Database.Dtos;
 using TeacherDiary.WebApi.Database.Entities;
@@ -7,11 +9,12 @@ namespace TeacherDiary.WebApi.Database
 {
     public class DtoMapperProfile : Profile
     {
-        protected internal DtoMapperProfile()
+        public DtoMapperProfile()
         {
-            CreateMap<PersonCreateDto, Person>();
-            CreateMap<PersonDto, Person>();
-            CreateMap<PersonUpdateDto, Person>();
+            CreateMap<PersonCreateDto, Person>().ReverseMap();
+            CreateMap<PersonDto, Person>().ReverseMap();
+            CreateMap<PersonUpdateDto, Person>().ReverseMap();
+
         }
     }
 }

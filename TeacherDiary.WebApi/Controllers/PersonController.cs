@@ -2,6 +2,7 @@
 
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TeacherDiary.WebApi.Database.Dtos;
 using TeacherDiary.WebApi.Database.Entities;
 using TeacherDiary.WebApi.Interfaces;
 using TeacherDiary.WebApi.Services;
@@ -23,30 +24,34 @@ namespace TeacherDiary.WebApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<ICollection<Person>> GetPersons()
+        public ActionResult<ICollection<PersonDto>> GetPersons()
         {
             var persons = _personService.Persons();
+
             return Ok(persons);
         }
 
         [HttpGet("{id:int}")]
-        public ActionResult<Person> GetPersonById([FromRoute] int id)
+        public ActionResult<PersonDto> GetPersonById([FromRoute] int id)
         {
             var person = _personService.PersonById(id);
+
             return Ok(person);
         }
 
         [HttpGet("{name}")]
-        public ActionResult<Person> GetPersonByName([FromRoute] string name)
+        public ActionResult<PersonDto> GetPersonByName([FromRoute] string name)
         {
             var person = _personService.PersonByName(name);
+
             return Ok(person);
         }
 
         [HttpPost]
-        public ActionResult PersonAdd([FromBody] Person person)
+        public ActionResult PersonAdd([FromBody] PersonCreateDto person)
         {
             _personService.PersonAdd(person);
+
             return Created();
         }
 
@@ -54,6 +59,7 @@ namespace TeacherDiary.WebApi.Controllers
         public ActionResult PersonDeleteById([FromRoute] int id)
         {
             _personService.PersonRemoveById(id);
+
             return Ok();
         }
 
@@ -61,13 +67,15 @@ namespace TeacherDiary.WebApi.Controllers
         public ActionResult PersonDeleteByName([FromRoute] string name)
         {
             _personService.PersonRemoveByName(name);
+
             return Ok();
         }
 
         [HttpPut]
-        public ActionResult PersonEdit([FromBody] Person person)
+        public ActionResult PersonEdit([FromBody] PersonUpdateDto person)
         {
             _personService.PersonEdit(person);
+
             return Ok();
         }
     }

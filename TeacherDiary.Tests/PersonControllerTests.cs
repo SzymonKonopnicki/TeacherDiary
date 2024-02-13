@@ -1,50 +1,47 @@
+ï»¿using Xunit;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
-using TeacherDiary.WebApi.Database;
-using Microsoft.Extensions.DependencyInjection;
-
+using FluentAssertions;
+using System.Net;
 
 namespace TeacherDiary.Tests
 {
-    public class PersonControllerTests
+    public class PersonControllerTests : IClassFixture<WebApplicationFactory<Program>>
     {
-        private HttpClient _client;
-        private WebApplicationFactory<Program> _factory;
+        private readonly WebApplicationFactory<Program> _factory;
 
-        //TODO:
-        //1. Niezale¿noœci od bazy danych. Baza danych w pamiêæ
         public PersonControllerTests(WebApplicationFactory<Program> factory)
         {
-            //za pomoc¹ WithWebHostBuilder nadpisujemy rejestracje serwisów po to by usun¹æ isteniej¹c¹ rejestracje
-            _client = factory
-                .WithWebHostBuilder(builder => 
-                {
-                    builder.ConfigureServices(services =>
-                    {
-                        var dbContextOptions = services.SingleOrDefault(service => service.ServiceType == typeof(DbContextOptions<DiaryContext>));
-
-                        services.Remove(dbContextOptions);
-
-                        //Powy¿ej pozbyliœmy siê istniej¹cej rejestracji dbCotextu
-
-                        //A tutaj rejestrujemy nasz w³asny dbCobntext w pamiêæ 
-                        services.AddDbContext<DiaryContext>(options => options.UseInMemoryDatabase("DiaryDb"));
-                        
-                    });
-                })
-                .CreateClient();
+            _factory = factory;
         }
 
         [Fact]
-        public void Persons_()
+        public async Task GetPerson_GetAllPersonsInDb_StatusOk()
         {
-            //arrange
+            // Arrange
+            var client = _factory.CreateClient();
 
-            //act
+            // Act
+            var response = await client.GetAsync("/api/Person");
 
-            //assert
-
+            // Assert
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
+
+        [Theory]
+        [InlineData(1)]
+        [InlineData(2)]//nie dziaÅ‚a bo w db nie ma osoby z tym id
+        [InlineData(3)]//nie dziaÅ‚a bo w db nie ma osoby z tym id
+        public async Task GetPersonById_GetOnePersonByInt_StatusOk(int id)
+        {
+            // Arrange
+            var client = _factory.CreateClient();
+
+            // Act
+            var response = await client.GetAsync("/api/Person/" + id);
+
+            // Assert
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
+
     }
 }
