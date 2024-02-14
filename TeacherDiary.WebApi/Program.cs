@@ -1,8 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System.Data.Entity;
 using TeacherDiary.WebApi.Database;
 using TeacherDiary.WebApi.Database.Entities;
 using TeacherDiary.WebApi.Interfaces;
 using TeacherDiary.WebApi.Services;
+using static System.Net.Mime.MediaTypeNames;
 public class Program
 {
     public static void Main(string[] args)
@@ -18,17 +23,24 @@ public class Program
 
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
-        builder.Services.AddDbContext<DiaryContext>();
+        builder.Services.AddDbContext<DiaryContext>(options =>
+            options.UseSqlServer(connectionString: "Server=(localdb)\\mssqllocaldb;Database=DiaryDb;Trusted_Connection=True;"));
         builder.Services.AddTransient<IPersonService, PersonService>();
 
 
+
         var app = builder.Build();
+
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
             app.UseSwaggerUI();
+
+            var scope = app.Services.CreateScope();
+            var seeder = scope.ServiceProvider.GetRequiredService<DbSeeder>();
+            seeder.DataSeeder();
         }
 
         app.UseHttpsRedirection();
@@ -38,6 +50,6 @@ public class Program
         app.MapControllers();
 
         app.Run();
-        
+
     }
 }
