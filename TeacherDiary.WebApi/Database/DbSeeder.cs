@@ -1,6 +1,8 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using TeacherDiary.WebApi.Database.Entities;
+using System.Data.Entity;
 
 namespace TeacherDiary.WebApi.Database
 {
@@ -36,7 +38,6 @@ namespace TeacherDiary.WebApi.Database
 
             defaultList.Add(new Person()
             {
-                Id = 1, // Ustawienie wartości Id jest wymagane, jeśli jest to klucz główny
                 Name = "Jan",
                 Surname = "Kowalski",
                 Email = "j.k@gmail.com",
@@ -47,7 +48,6 @@ namespace TeacherDiary.WebApi.Database
                 {
                     new Ticket() // Poprawione użycie słowa kluczowego "new"
                     {
-                        Id = 1, // Podobnie, Id jest wymagane, jeśli jest kluczem głównym
                         Name = "Some ticket",
                         Price = 9.00,
                         ValidFrom = new DateTime(2024, 02, 14), // Poprawna składnia dla tworzenia daty
@@ -61,7 +61,6 @@ namespace TeacherDiary.WebApi.Database
             
             defaultList.Add(new Person()
             {
-                Id = 1, // Ustawienie wartości Id jest wymagane, jeśli jest to klucz główny
                 Name = "Jacek",
                 Surname = "Nowak",
                 Email = "j.n@gmail.com",
@@ -72,7 +71,6 @@ namespace TeacherDiary.WebApi.Database
                 {
                     new Ticket() // Poprawione użycie słowa kluczowego "new"
                     {
-                        Id = 1, // Podobnie, Id jest wymagane, jeśli jest kluczem głównym
                         Name = "Some ticket x 2",
                         Price = 9.99,
                         ValidFrom = new DateTime(2024, 01, 14), // Poprawna składnia dla tworzenia daty

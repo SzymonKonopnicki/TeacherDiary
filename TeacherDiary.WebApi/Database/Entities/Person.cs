@@ -1,8 +1,12 @@
-﻿namespace TeacherDiary.WebApi.Database.Entities
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace TeacherDiary.WebApi.Database.Entities
 {
     public class Person
     {
-        public required int Id { get; set; }
+        [Key]
+        public int Id { get; set; }
         public required string Name { get; set; }
         public required string Surname { get; set; }
         public string? Email { get; set; }

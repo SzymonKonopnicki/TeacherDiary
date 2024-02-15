@@ -25,6 +25,7 @@ public class Program
         builder.Services.AddSwaggerGen();
         builder.Services.AddDbContext<DiaryContext>(options =>
             options.UseSqlServer(connectionString: "Server=(localdb)\\mssqllocaldb;Database=DiaryDb;Trusted_Connection=True;"));
+        builder.Services.AddScoped<DbSeeder>();
         builder.Services.AddTransient<IPersonService, PersonService>();
 
 
