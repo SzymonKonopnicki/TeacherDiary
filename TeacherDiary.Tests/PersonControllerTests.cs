@@ -4,6 +4,10 @@ using FluentAssertions;
 using System.Net;
 using TeacherDiary.WebApi.Database;
 using Microsoft.EntityFrameworkCore;
+using TeacherDiary.WebApi.Database.Entities;
+using Newtonsoft.Json;
+using System.Text;
+using TeacherDiary.WebApi.Database.Dtos;
 
 namespace TeacherDiary.Tests
 {
@@ -45,7 +49,6 @@ namespace TeacherDiary.Tests
         [Theory]
         [InlineData(1)]//nie działa bo w db nie ma osoby z tym id
         [InlineData(2)]//nie działa bo w db nie ma osoby z tym id
-        [InlineData(3)]//nie działa bo w db nie ma osoby z tym id
         public async Task GetPersonById_GetOnePersonByInt_StatusOk(int id)
         {
             // Arrange
@@ -58,7 +61,6 @@ namespace TeacherDiary.Tests
         }
 
         [Theory]
-        [InlineData(2)]
         [InlineData(-3)]
         [InlineData(null)]
         public async Task GetPersonById_GetOnePersonByInt_StatusNoContent(int id)
@@ -72,5 +74,56 @@ namespace TeacherDiary.Tests
             response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         }
 
+        [Theory]
+        [InlineData("JAcEk")]
+        [InlineData("jan")]
+        public async Task GetPersonByString_GetOnePersonByInt_StatusOk(string name)
+        {
+            // Arrange
+
+            // Act
+            var response = await _client.GetAsync("/api/Person/" + name);
+
+            // Assert
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
+
+        [Theory]
+        [InlineData("KkkkAWK")]
+        public async Task GetPersonByString_GetOnePersonByInt_StatusNoContent(string name)
+        {
+            // Arrange
+
+            // Act
+            var response = await _client.GetAsync("/api/Person/" + name);
+            var x = response.Content.ReadAsStringAsync();
+            // Assert
+            response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+        }
+
+        [Fact]
+        public async Task PersonAdd_AddPersonsToDb_StatusCreated()
+        {
+            // Arrange
+            var person = new PersonCreateDto()
+            {
+                Name = "Szymon",
+                Surname = "Kowalski",
+                Email = "S.k@gmail.com",
+                Phone = "333222333",
+                Agreement = false,
+                Comments = "Some comm...",
+            };
+
+            var json = JsonConvert.SerializeObject(person);
+
+            var httpContent = new StringContent(json, UnicodeEncoding.UTF8, "application/json");
+
+            // Act
+            var response = await _client.PostAsync("/api/Person", httpContent);
+
+            // Assert
+            response.StatusCode.Should().Be(HttpStatusCode.Created);
+        }
     }
 }

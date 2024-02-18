@@ -51,13 +51,15 @@ namespace TeacherDiary.WebApi.Services
             return personDto;
         }
 
-        public void PersonAdd(PersonCreateDto personCreateDto)
+        public PersonCreateDto PersonAdd(PersonCreateDto personCreateDto)
         {
             var person = _mapper.Map<Person>(personCreateDto);
 
             _dbContext.Persons.Add(person);
 
             _dbContext.SaveChanges();
+
+            return personCreateDto;
         }
 
         public void PersonRemoveById(int id)

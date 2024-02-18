@@ -50,9 +50,9 @@ namespace TeacherDiary.WebApi.Controllers
         [HttpPost]
         public ActionResult PersonAdd([FromBody] PersonCreateDto person)
         {
-            _personService.PersonAdd(person);
+            var CretePerson = _personService.PersonAdd(person);
 
-            return Created();
+            return Created("/api/person/" + person.Name, CretePerson);
         }
 
         [HttpDelete("{id:int}")]

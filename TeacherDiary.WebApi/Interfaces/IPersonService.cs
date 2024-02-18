@@ -10,7 +10,7 @@ namespace TeacherDiary.WebApi.Interfaces
         public ICollection<PersonDto> Persons();
         public PersonDto PersonById(int id);
         public PersonDto PersonByName(string name);
-        public void PersonAdd(PersonCreateDto person);
+        public PersonCreateDto PersonAdd(PersonCreateDto person);
         public void PersonRemoveById(int id);
         public void PersonRemoveByName(string name);
         public void PersonEdit(PersonUpdateDto person);
