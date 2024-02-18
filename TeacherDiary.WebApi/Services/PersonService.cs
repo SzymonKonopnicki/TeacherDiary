@@ -70,7 +70,7 @@ namespace TeacherDiary.WebApi.Services
 
         public void PersonRemoveByName(string name)
         {
-            var person = _dbContext.Persons.Where(x => x.Name == name).FirstOrDefault();
+            var person = _dbContext.Persons.Where(x => x.Name.ToLower() == name.ToLower()).FirstOrDefault();
             _dbContext.Persons.Remove(person);
         }
 

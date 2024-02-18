@@ -8,6 +8,7 @@ using TeacherDiary.WebApi.Database.Entities;
 using Newtonsoft.Json;
 using System.Text;
 using TeacherDiary.WebApi.Database.Dtos;
+using Azure;
 
 namespace TeacherDiary.Tests
 {
@@ -47,8 +48,8 @@ namespace TeacherDiary.Tests
         }
 
         [Theory]
-        [InlineData(1)]//nie działa bo w db nie ma osoby z tym id
-        [InlineData(2)]//nie działa bo w db nie ma osoby z tym id
+        [InlineData(1)]
+        [InlineData(2)]
         public async Task GetPersonById_GetOnePersonByInt_StatusOk(int id)
         {
             // Arrange
@@ -125,5 +126,36 @@ namespace TeacherDiary.Tests
             // Assert
             response.StatusCode.Should().Be(HttpStatusCode.Created);
         }
+
+        [Theory]
+        [InlineData(1)]
+        [InlineData(2)]
+        public async Task PersonDeleteById_RemovePersonFromDb_StatusOk(int x)
+        {
+            // Arrange
+
+            // Act
+            var response = await _client.DeleteAsync("/api/Person/" + x);
+
+            // Assert
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        }
+
+        [Theory]
+        [InlineData("JAn")]
+        [InlineData("jaCek")]
+        public async Task PersonDeleteByName_RemovePersonFromDb_StatusOk(string x)
+        {
+            // Arrange
+
+            // Act
+            var response = await _client.DeleteAsync("/api/Person/" + x);
+
+            // Assert
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        }
+
     }
 }
