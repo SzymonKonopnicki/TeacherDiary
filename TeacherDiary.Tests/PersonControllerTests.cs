@@ -157,5 +157,31 @@ namespace TeacherDiary.Tests
 
         }
 
+        //szukanie po mailu osoby
+        [Fact]
+        public async Task PersonEdit_EditPersonsInDb_StatusOk()
+        {
+            // Arrange
+            var person = new PersonUpdateDto()
+            {
+                Name = "Szymon",
+                Surname = "Kowalski",
+                Email = "j.n@gmail.com",
+                Phone = "333222333",
+                Agreement = false,
+                Comments = "Some comm...",
+            };
+
+            var json = JsonConvert.SerializeObject(person);
+
+            var httpContent = new StringContent(json, UnicodeEncoding.UTF8, "application/json");
+
+            // Act
+            var response = await _client.PutAsync("/api/Person", httpContent);
+
+            // Assert
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
+
     }
 }

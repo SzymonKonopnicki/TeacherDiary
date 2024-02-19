@@ -4,9 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using TeacherDiary.WebApi.Database.Entities;
 using System.Data.Entity;
 
-#pragma warning disable VSSpell001 // Spell Check
 namespace TeacherDiary.WebApi.Database
-#pragma warning restore VSSpell001 // Spell Check
 {
     public class DbSeeder
     {
