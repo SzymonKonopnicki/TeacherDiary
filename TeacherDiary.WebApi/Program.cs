@@ -28,6 +28,7 @@ public class Program
             options.UseSqlServer(connectionString: "Server=(localdb)\\mssqllocaldb;Database=DiaryDb;Trusted_Connection=True;"));
         builder.Services.AddScoped<DbSeeder>();
         builder.Services.AddTransient<IPersonService, PersonService>();
+        builder.Services.AddTransient<ITicketService, TicketService>();
         builder.Services.AddScoped<ExceptionHandlerMiddleware>();
 
 
