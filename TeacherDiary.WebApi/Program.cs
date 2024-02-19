@@ -6,6 +6,7 @@ using System.Data.Entity;
 using TeacherDiary.WebApi.Database;
 using TeacherDiary.WebApi.Database.Entities;
 using TeacherDiary.WebApi.Interfaces;
+using TeacherDiary.WebApi.Middlewares;
 using TeacherDiary.WebApi.Services;
 using static System.Net.Mime.MediaTypeNames;
 public class Program
@@ -27,7 +28,7 @@ public class Program
             options.UseSqlServer(connectionString: "Server=(localdb)\\mssqllocaldb;Database=DiaryDb;Trusted_Connection=True;"));
         builder.Services.AddScoped<DbSeeder>();
         builder.Services.AddTransient<IPersonService, PersonService>();
-
+        builder.Services.AddScoped<ExceptionHandlerMiddleware>();
 
 
         var app = builder.Build();
@@ -43,6 +44,8 @@ public class Program
             var seeder = scope.ServiceProvider.GetRequiredService<DbSeeder>();
             seeder.DataSeeder();
         }
+
+        app.UseMiddleware<ExceptionHandlerMiddleware>();
 
         app.UseHttpsRedirection();
 

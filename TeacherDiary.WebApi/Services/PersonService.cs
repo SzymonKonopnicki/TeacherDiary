@@ -1,9 +1,11 @@
 ﻿// Ignore Spelling: Api Dto
 
 using AutoMapper;
+using System;
 using TeacherDiary.WebApi.Database;
 using TeacherDiary.WebApi.Database.Dtos;
 using TeacherDiary.WebApi.Database.Entities;
+using TeacherDiary.WebApi.Exceptions;
 using TeacherDiary.WebApi.Interfaces;
 
 namespace TeacherDiary.WebApi.Services
@@ -28,6 +30,11 @@ namespace TeacherDiary.WebApi.Services
         {
             var persons = _dbContext.Persons.ToList();
 
+            if (persons == null)
+            {
+                throw new NotFoundException($"Osoby z nie odnaleziono.");
+            }
+
             var personsDto = _mapper.Map<List<PersonDto>>(persons);
 
             return personsDto;
@@ -37,6 +44,11 @@ namespace TeacherDiary.WebApi.Services
         {
             var person = _dbContext.Persons.Where(x => x.Id == id).FirstOrDefault();
 
+            if (person == null) 
+            {
+                throw new NotFoundException($"Osoba z ID: {id} nie została odnaleziona.");
+            }
+
             var personDto = _mapper.Map<PersonDto>(person);
 
             return personDto;
@@ -45,6 +57,11 @@ namespace TeacherDiary.WebApi.Services
         public PersonDto PersonByName(string name)
         {
             var person = _dbContext.Persons.Where(x => x.Name.ToLower() == name.ToLower()).FirstOrDefault();
+
+            if (person == null)
+            {
+                throw new NotFoundException($"Osoba z imieniem: {name} nie została odnaleziona.");
+            }
 
             var personDto = _mapper.Map<PersonDto>(person);
 
@@ -65,18 +82,35 @@ namespace TeacherDiary.WebApi.Services
         public void PersonRemoveById(int id)
         {
             var person = _dbContext.Persons.Where(x => x.Id == id).FirstOrDefault();
+
+            if (person == null)
+            {
+                throw new NotFoundException($"Osoba z ID: {id} nie została odnaleziona.");
+            }
+
             _dbContext.Persons.Remove(person);
         }
 
         public void PersonRemoveByName(string name)
         {
             var person = _dbContext.Persons.Where(x => x.Name.ToLower() == name.ToLower()).FirstOrDefault();
+
+            if (person == null)
+            {
+                throw new NotFoundException($"Osoba z imieniem: {name} nie została odnaleziona.");
+            }
+
             _dbContext.Persons.Remove(person);
         }
 
         public void PersonEdit(PersonUpdateDto personUpdateDto)
         {
             var personDb = _dbContext.Persons.Where(x => x.Email == personUpdateDto.Email).FirstOrDefault();
+
+            if (personDb == null)
+            {
+                throw new NotFoundException($"Osoba z mailem: {personUpdateDto.Email} nie została odnaleziona.");
+            }
 
             personDb.Name = personUpdateDto.Name;
             personDb.Surname = personUpdateDto.Surname;
