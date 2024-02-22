@@ -13,6 +13,7 @@ namespace TeacherDiary.WebApi.Database
 
         public DbSet<Person> Persons { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<TicketForUse> TicketsForUse { get; set; }
 
     }
 }

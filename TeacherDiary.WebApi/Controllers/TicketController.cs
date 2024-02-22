@@ -1,13 +1,8 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Mvc;
-using TeacherDiary.WebApi.Database;
+﻿using Microsoft.AspNetCore.Mvc;
 using TeacherDiary.WebApi.Database.Dtos;
 using TeacherDiary.WebApi.Interfaces;
-using TeacherDiary.WebApi.Services;
 
-#pragma warning disable VSSpell001 // Spell Check
 namespace TeacherDiary.WebApi.Controllers
-#pragma warning restore VSSpell001 // Spell Check
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -45,7 +40,7 @@ namespace TeacherDiary.WebApi.Controllers
         }
 
         [HttpPost]
-        public ActionResult TicketAdd([FromBody] TicketCreateDto ticket)
+        public ActionResult TicketAdd([FromBody] TicketDto ticket)
         {
             var creteTicet = _ticketService.TicketAdd(ticket);
 
@@ -69,7 +64,7 @@ namespace TeacherDiary.WebApi.Controllers
         }
 
         [HttpPut]
-        public ActionResult TicketEdit([FromBody] TicketUpdateDto ticket)
+        public ActionResult TicketEdit([FromBody] TicketDto ticket)
         {
             _ticketService.TicketEdit(ticket);
 

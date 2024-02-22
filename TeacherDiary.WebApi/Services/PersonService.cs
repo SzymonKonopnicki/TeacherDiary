@@ -1,6 +1,7 @@
 ﻿// Ignore Spelling: Api Dto
 
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using TeacherDiary.WebApi.Database;
 using TeacherDiary.WebApi.Database.Dtos;
@@ -28,7 +29,9 @@ namespace TeacherDiary.WebApi.Services
 
         public ICollection<PersonDto> Persons()
         {
-            var persons = _dbContext.Persons.ToList();
+            var persons = _dbContext.Persons
+                .Include(x => x.TicketsForUse)
+                .ToList();
 
             if (persons == null)
             {
@@ -42,7 +45,10 @@ namespace TeacherDiary.WebApi.Services
 
         public PersonDto PersonById(int id)
         {
-            var person = _dbContext.Persons.Where(x => x.Id == id).FirstOrDefault();
+            var person = _dbContext.Persons
+                .Include(x => x.TicketsForUse)
+                .Where(x => x.Id == id)
+                .FirstOrDefault();
 
             if (person == null) 
             {
@@ -56,7 +62,10 @@ namespace TeacherDiary.WebApi.Services
 
         public PersonDto PersonByName(string name)
         {
-            var person = _dbContext.Persons.Where(x => x.Name.ToLower() == name.ToLower()).FirstOrDefault();
+            var person = _dbContext.Persons
+                .Include(x => x.TicketsForUse)
+                .Where(x => x.Name.ToLower() == name.ToLower())
+                .FirstOrDefault();
 
             if (person == null)
             {
@@ -81,7 +90,9 @@ namespace TeacherDiary.WebApi.Services
 
         public void PersonRemoveById(int id)
         {
-            var person = _dbContext.Persons.Where(x => x.Id == id).FirstOrDefault();
+            var person = _dbContext.Persons
+                .Where(x => x.Id == id)
+                .FirstOrDefault();
 
             if (person == null)
             {
@@ -93,7 +104,9 @@ namespace TeacherDiary.WebApi.Services
 
         public void PersonRemoveByName(string name)
         {
-            var person = _dbContext.Persons.Where(x => x.Name.ToLower() == name.ToLower()).FirstOrDefault();
+            var person = _dbContext.Persons
+                .Where(x => x.Name.ToLower() == name.ToLower())
+                .FirstOrDefault();
 
             if (person == null)
             {
@@ -105,7 +118,9 @@ namespace TeacherDiary.WebApi.Services
 
         public void PersonEdit(PersonUpdateDto personUpdateDto)
         {
-            var personDb = _dbContext.Persons.Where(x => x.Email == personUpdateDto.Email).FirstOrDefault();
+            var personDb = _dbContext.Persons
+                .Where(x => x.Email == personUpdateDto.Email)
+                .FirstOrDefault();
 
             if (personDb == null)
             {
@@ -114,11 +129,14 @@ namespace TeacherDiary.WebApi.Services
 
             personDb.Name = personUpdateDto.Name;
             personDb.Surname = personUpdateDto.Surname;
-            personDb.Email = personUpdateDto.Email;
             personDb.Phone = personUpdateDto.Phone;
             personDb.Agreement = personUpdateDto.Agreement;
             personDb.Comments = personUpdateDto.Comments;
-            personDb.Tickets = personUpdateDto.Tickets;
+
+            if (personUpdateDto.Email != null)
+            {
+                personDb.Email = personUpdateDto.Email;
+            }
         }
     }
 }

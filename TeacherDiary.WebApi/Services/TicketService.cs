@@ -60,11 +60,11 @@ namespace TeacherDiary.WebApi.Services
             return ticketDto;
         }
 
-        public TicketDto TicketAdd(TicketCreateDto ticketCreateDto)
+        public TicketDto TicketAdd(TicketDto ticketCreateDto)
         {
-            var ticket = _mapper.Map<Ticket>(ticketCreateDto);
+            var ticket = _mapper.Map<TicketForUse>(ticketCreateDto);
 
-            _dbContext.Tickets.Add(ticket);
+            //_dbContext.Tickets.Add(ticket);
 
             _dbContext.SaveChanges();
 
@@ -101,7 +101,7 @@ namespace TeacherDiary.WebApi.Services
             _dbContext.SaveChanges();
         }
 
-        public void TicketEdit(TicketUpdateDto ticketUpdateDto)
+        public void TicketEdit(TicketDto ticketUpdateDto)
         {
             var ticketDb = _dbContext.Tickets.Where(x => x.Name == ticketUpdateDto.Name).FirstOrDefault();
 
@@ -112,11 +112,9 @@ namespace TeacherDiary.WebApi.Services
 
             ticketDb.Name = ticketUpdateDto.Name;
             ticketDb.Price = ticketUpdateDto.Price;
-            ticketDb.ValidFrom = ticketUpdateDto.ValidFrom;
-            ticketDb.ValidTo = ticketUpdateDto.ValidTo;
-            ticketDb.Active = ticketUpdateDto.Active;
             ticketDb.EntryQuantity = ticketUpdateDto.EntryQuantity;
-            ticketDb.AvailableEntryQuantity = ticketUpdateDto.AvailableEntryQuantity;
+
+            _dbContext.SaveChanges();
         }
 
     }

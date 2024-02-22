@@ -1,8 +1,5 @@
-﻿
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using Microsoft.EntityFrameworkCore;
 using TeacherDiary.WebApi.Database.Entities;
-using System.Data.Entity;
 
 namespace TeacherDiary.WebApi.Database
 {
@@ -24,63 +21,71 @@ namespace TeacherDiary.WebApi.Database
             {
                 if (!_dbContext.Persons.Any())
                 {
-                    var data = BasicDataInitialization();
+                    var data = BasicDataPersonInitialization();
                     _dbContext.AddRange(data);
                     _dbContext.SaveChanges();
                 }
-                
+                if (!_dbContext.Tickets.Any())
+                {
+                    var data = BasicDataTicketInitialization();
+                    _dbContext.AddRange(data);
+                    _dbContext.SaveChanges();
+                }
             }
         }
 
-        private List<Person> BasicDataInitialization()
+        private List<Person> BasicDataPersonInitialization()
         {
-            List<Person> defaultList = new List<Person>();
+            List<Person> defaultList = new List<Person>()
+            {
+                new Person()
+                {
+                    Name = "Jan",
+                    Surname = "Kowalski",
+                    Email = "JK@gmail.com",
+                    Phone = "666111666",
+                    Agreement = true,
+                    Comments = "Text..."
+                },
+                new Person()
+                {
+                    Name = "Jacek",
+                    Surname = "Wojciechowski",
+                    Email = "JW@gmail.com",
+                    Phone = "666777666",
+                    Agreement = false,
+                    Comments = "Text...",
+                }
+            };
 
-            defaultList.Add(new Person()
+            return defaultList;
+        }
+
+        private List<Ticket> BasicDataTicketInitialization()
+        {
+            List<Ticket> defaultList = new List<Ticket>()
             {
-                Name = "Jan",
-                Surname = "Kowalski",
-                Email = "j.k@gmail.com",
-                Phone = "111222333",
-                Agreement = true,
-                Comments = "Some comm...",
-                Tickets = new List<Ticket>()
+                new Ticket()
                 {
-                    new Ticket() // Poprawione użycie słowa kluczowego "new"
-                    {
-                        Name = "Some ticket",
-                        Price = 9.00,
-                        ValidFrom = new DateTime(2024, 02, 14), // Poprawna składnia dla tworzenia daty
-                        ValidTo = new DateTime(2024, 03, 14), // Poprawna składnia dla tworzenia daty
-                        Active = true,
-                        EntryQuantity = 2,
-                        AvailableEntryQuantity = 1
-                    }
-                }
-            });
-            
-            defaultList.Add(new Person()
-            {
-                Name = "Jacek",
-                Surname = "Nowak",
-                Email = "j.n@gmail.com",
-                Phone = "333111222",
-                Agreement = false,
-                Comments = "Some comm...",
-                Tickets = new List<Ticket>()
+                    Name = "Ticket S",
+                    Price = 10.00,
+                    EntryQuantity = 5
+                },
+
+                new Ticket()
                 {
-                    new Ticket() // Poprawione użycie słowa kluczowego "new"
-                    {
-                        Name = "Some ticket x 2",
-                        Price = 9.99,
-                        ValidFrom = new DateTime(2024, 01, 14), // Poprawna składnia dla tworzenia daty
-                        ValidTo = new DateTime(2024, 02, 14), // Poprawna składnia dla tworzenia daty
-                        Active = true,
-                        EntryQuantity = 10,
-                        AvailableEntryQuantity = 1
-                    }
+                    Name = "Ticket M",
+                    Price = 15.00,
+                    EntryQuantity = 10
+                },
+
+                new Ticket()
+                {
+                    Name = "Ticket L",
+                    Price = 20.00,
+                    EntryQuantity = 15
                 }
-            });
+            };
 
             return defaultList;
         }

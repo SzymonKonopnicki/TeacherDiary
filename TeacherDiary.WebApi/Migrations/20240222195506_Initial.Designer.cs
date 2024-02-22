@@ -12,8 +12,8 @@ using TeacherDiary.WebApi.Database;
 namespace TeacherDiary.WebApi.Migrations
 {
     [DbContext(typeof(DiaryContext))]
-    [Migration("20240215200509_addMig")]
-    partial class addMig
+    [Migration("20240222195506_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,6 +40,7 @@ namespace TeacherDiary.WebApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -54,12 +55,40 @@ namespace TeacherDiary.WebApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TicketForUseId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("TicketForUseId");
 
                     b.ToTable("Persons");
                 });
 
             modelBuilder.Entity("TeacherDiary.WebApi.Database.Entities.Ticket", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("EntryQuantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tickets");
+                });
+
+            modelBuilder.Entity("TeacherDiary.WebApi.Database.Entities.TicketForUse", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -80,9 +109,6 @@ namespace TeacherDiary.WebApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PersonId")
-                        .HasColumnType("int");
-
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
@@ -94,21 +120,18 @@ namespace TeacherDiary.WebApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PersonId");
-
-                    b.ToTable("Tickets");
-                });
-
-            modelBuilder.Entity("TeacherDiary.WebApi.Database.Entities.Ticket", b =>
-                {
-                    b.HasOne("TeacherDiary.WebApi.Database.Entities.Person", null)
-                        .WithMany("Tickets")
-                        .HasForeignKey("PersonId");
+                    b.ToTable("TicketsForUse");
                 });
 
             modelBuilder.Entity("TeacherDiary.WebApi.Database.Entities.Person", b =>
                 {
-                    b.Navigation("Tickets");
+                    b.HasOne("TeacherDiary.WebApi.Database.Entities.TicketForUse", "TicketsForUse")
+                        .WithMany()
+                        .HasForeignKey("TicketForUseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TicketsForUse");
                 });
 #pragma warning restore 612, 618
         }

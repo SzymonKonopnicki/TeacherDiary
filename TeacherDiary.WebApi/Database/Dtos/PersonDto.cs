@@ -11,7 +11,7 @@ namespace TeacherDiary.WebApi.Database.Dtos
         public required string Phone { get; set; }
         public required bool Agreement { get; set; }
         public string? Comments { get; set; }
-        public ICollection<Ticket>? Tickets { get; set; }
+        public ICollection<TicketForUse>? Tickets { get; set; }
 
     }
 }

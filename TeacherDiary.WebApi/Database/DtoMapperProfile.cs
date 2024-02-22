@@ -1,7 +1,4 @@
-﻿// Ignore Spelling: Dto Api
-
-using AutoMapper;
-using System.Linq.Expressions;
+﻿using AutoMapper;
 using TeacherDiary.WebApi.Database.Dtos;
 using TeacherDiary.WebApi.Database.Entities;
 
@@ -15,10 +12,7 @@ namespace TeacherDiary.WebApi.Database
             CreateMap<PersonDto, Person>().ReverseMap();
             CreateMap<PersonUpdateDto, Person>().ReverseMap();
 
-            CreateMap<TicketCreateDto, Ticket>().ReverseMap();
-            CreateMap<TicketDto, Ticket>().ReverseMap();
-            CreateMap<TicketUpdateDto, Ticket>().ReverseMap();
-
+            CreateMap<TicketDto, TicketForUse>().ReverseMap();
         }
     }
 }

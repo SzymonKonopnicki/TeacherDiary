@@ -7,10 +7,10 @@ namespace TeacherDiary.WebApi.Interfaces
         public ICollection<TicketDto> Tickets();
         public TicketDto TicketById(int id);
         public TicketDto TicketByName(string name);
-        public TicketDto TicketAdd(TicketCreateDto person);
+        public TicketDto TicketAdd(TicketDto person);
         public void TicketRemoveById(int id);
         public void TicketRemoveByName(string name);
-        public void TicketEdit(TicketUpdateDto person);
+        public void TicketEdit(TicketDto person);
 
     }
 }

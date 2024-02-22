@@ -1,14 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System.Data.Entity;
 using TeacherDiary.WebApi.Database;
-using TeacherDiary.WebApi.Database.Entities;
 using TeacherDiary.WebApi.Interfaces;
 using TeacherDiary.WebApi.Middlewares;
 using TeacherDiary.WebApi.Services;
-using static System.Net.Mime.MediaTypeNames;
+
 public class Program
 {
     public static void Main(string[] args)
@@ -29,6 +24,7 @@ public class Program
         builder.Services.AddScoped<DbSeeder>();
         builder.Services.AddTransient<IPersonService, PersonService>();
         builder.Services.AddTransient<ITicketService, TicketService>();
+        builder.Services.AddTransient<IAssignment, AssignmentService>();
         builder.Services.AddScoped<ExceptionHandlerMiddleware>();
 
 
