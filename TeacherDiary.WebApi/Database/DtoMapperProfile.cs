@@ -9,10 +9,13 @@ namespace TeacherDiary.WebApi.Database
         public DtoMapperProfile()
         {
             CreateMap<PersonCreateDto, Person>().ReverseMap();
-            CreateMap<PersonDto, Person>().ReverseMap();
+            CreateMap<PersonDto, Person>()
+                .ForMember(dest => dest.TicketsForUse, opt => opt.MapFrom(src => src.TicketForUse))
+                .ReverseMap();
+
             CreateMap<PersonUpdateDto, Person>().ReverseMap();
 
-            CreateMap<TicketDto, TicketForUse>().ReverseMap();
+            CreateMap<TicketDto, Ticket>().ReverseMap();
         }
     }
 }

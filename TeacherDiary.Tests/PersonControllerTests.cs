@@ -12,12 +12,12 @@ using Azure;
 
 namespace TeacherDiary.Tests
 {
-    public class PersonControllerTests : IClassFixture<WebApplicationFactory<Program>>
+    public class TicketControllerTests : IClassFixture<WebApplicationFactory<Program>>
     {
         private readonly WebApplicationFactory<Program> _factory;
         private readonly HttpClient _client;
 
-        public PersonControllerTests(WebApplicationFactory<Program> factory)
+        public TicketControllerTests(WebApplicationFactory<Program> factory)
         {
             _factory = factory;
             _client = _factory

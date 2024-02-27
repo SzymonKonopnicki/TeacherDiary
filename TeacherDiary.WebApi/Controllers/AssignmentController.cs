@@ -20,5 +20,15 @@ namespace TeacherDiary.WebApi.Controllers
 
             return Ok();
         }
+
+
+        [HttpDelete]
+        public ActionResult TicketFromPerson([FromQuery] string personMail)
+        {
+            _serviceAssigment.AssignTicketToPerson(personMail);
+
+            return Ok();
+        }
+
     }
 }
