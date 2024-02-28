@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Net.Http.Headers;
 using TeacherDiary.WebApi.Database;
 using TeacherDiary.WebApi.Interfaces;
 using TeacherDiary.WebApi.Middlewares;
@@ -41,6 +42,12 @@ public class Program
             var seeder = scope.ServiceProvider.GetRequiredService<DbSeeder>();
             seeder.DataSeeder();
         }
+
+        app.UseCors(policy =>
+            policy.WithOrigins("https://localhost:7050", "http://localhost:7050")
+            .AllowAnyMethod()
+            .WithHeaders(HeaderNames.ContentType)
+        );
 
         app.UseMiddleware<ExceptionHandlerMiddleware>();
 

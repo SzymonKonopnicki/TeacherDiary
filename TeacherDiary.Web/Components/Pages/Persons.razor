@@ -1,0 +1,38 @@
+﻿@page "/"
+@inherits PersonBase
+
+<h3>Persons</h3>
+<br>
+
+@if (Persons == null)
+{
+    <h3>Ładowanie...</h3>
+}
+else
+{
+    <h3>Lista Osób:</h3>
+    <table class="table table-striped">
+        <tr>
+            <th>Imie</th>
+            <th>Nazwisko</th>
+            <th>Mail</th>
+            <th>Phone</th>
+            <th>Agreement</th>
+            <th>Comments</th>
+            <th>Usługa</th>
+        </tr>
+    @foreach (var person in Persons)
+    {
+        <tr>
+            <th>@person.Name</th>
+            <th>@person.Surname</th>
+            <th>@person.Email</th>
+            <th>@person.Phone</th>
+            <th>@person.Agreement</th>
+            <th>@person.Comments</th>
+            <th>person.TicketForUse.Object</th>
+        </tr>
+    }
+    </table>
+
+}
