@@ -2,9 +2,9 @@
 using TeacherDiary.Web.Interfaces;
 using TeacherDiary.WebApi.Database.Dtos;
 
-namespace TeacherDiary.Web.Components
+namespace TeacherDiary.Web.Components.Pages
 {
-    public class PersonBase : ComponentBase
+    public class PersonsBase : ComponentBase
     {
         [Inject]
         public IProductService ProductService { get; set; }
@@ -13,7 +13,7 @@ namespace TeacherDiary.Web.Components
 
         protected override async Task OnInitializedAsync()
         {
-            Persons = await ProductService.GetPerson();
+            Persons = await ProductService.GetPersons();
         }
     }
 }

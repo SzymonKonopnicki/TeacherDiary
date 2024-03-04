@@ -1,9 +1,17 @@
-﻿@page "/"
-@inherits PersonBase
+﻿@page "/persons"
+@rendermode InteractiveServer
+@inherits PersonsBase
 
-<h3>Persons</h3>
+<h3>Osoby</h3>
 <br>
 
+<div class="card">
+    <div class="card-body">
+        Lorem Ipsum jest tekstem stosowanym jako przykładowy wypełniacz w przemyśle poligraficznym. Został po raz pierwszy użyty w XV w. przez nieznanego drukarza do wypełnienia tekstem próbnej książki. Pięć wieków później zaczął być używany przemyśle elektronicznym, pozostając praktycznie niezmienionym. Spopularyzował się w latach 60. XX w. wraz z publikacją arkuszy Letrasetu, zawierających fragmenty Lorem Ipsum, a ostatnio z zawierającym różne wersje Lorem Ipsum oprogramowaniem przeznaczonym do realizacji druków na komputerach osobistych, jak Aldus PageMaker
+    </div>
+</div>
+
+<br>
 @if (Persons == null)
 {
     <h3>Ładowanie...</h3>
@@ -11,28 +19,72 @@
 else
 {
     <h3>Lista Osób:</h3>
-    <table class="table table-striped">
-        <tr>
-            <th>Imie</th>
-            <th>Nazwisko</th>
-            <th>Mail</th>
-            <th>Phone</th>
-            <th>Agreement</th>
-            <th>Comments</th>
-            <th>Usługa</th>
-        </tr>
+    <table class="table table-hover">
+         <thead>
+            <tr>
+                <th>Imie</th>
+                <th>Nazwisko</th>
+                <th>Mail</th>
+                <th>Phone</th>
+                <th>Agreement</th>
+                <th>Comments</th>
+                <th>Usługa</th>
+                <th>Opcje</th>
+            </tr>
+        </thead>
     @foreach (var person in Persons)
     {
-        <tr>
-            <th>@person.Name</th>
-            <th>@person.Surname</th>
-            <th>@person.Email</th>
-            <th>@person.Phone</th>
-            <th>@person.Agreement</th>
-            <th>@person.Comments</th>
-            <th>person.TicketForUse.Object</th>
-        </tr>
+        <tbody>
+            <tr>
+                <th>@person.Name</th>
+                <th>@person.Surname</th>
+                <th>@person.Email</th>
+                <th>@person.Phone</th>
+                <th>@person.Agreement</th>
+                <th>@person.Comments</th>
+                <th>@person.TicketForUse.Name</th>
+                <th>
+                    <button class="btn btn-primary btn-sm">Podgląd</button>
+                    <button class="btn btn-success btn-sm">Dodaj usługe</button>
+                    <button class="btn btn-warning btn-sm">Edytuj</button>
+                    <button class="btn btn-danger btn-sm">Usuń</button>
+                </th>
+            </tr>
+        </tbody>
     }
     </table>
+}
+<br />
 
+<p role="status">Current count: @currentState</p>
+<button class="btn btn-primary" @onclick="Switch">Dźwignia</button>
+<br />
+
+@if (currentState == true)
+{
+    <div class="card">
+        <div class="card-body">
+            <a>
+                Lorem Ipsum jest tekstem stosowanym jako przykładowy wypełniacz w przemyśle poligraficznym. Został po raz pierwszy użyty w XV w. przez nieznanego drukarza do wypełnienia tekstem próbnej książki. Pięć wieków później zaczął być używany przemyśle elektronicznym, pozostając praktycznie niezmienionym. Spopularyzował się w latach 60. XX w. wraz z publikacją arkuszy Letrasetu, zawierających fragmenty Lorem Ipsum, a ostatnio z zawierającym różne wersje Lorem Ipsum oprogramowaniem przeznaczonym do realizacji druków na komputerach osobistych, jak Aldus PageMaker
+            </a>
+        </div>
+    </div>
+
+}
+
+@code 
+{
+    private bool currentState = false;
+
+    private void Switch()
+    {
+        if (currentState == true)
+        {
+            currentState = false;
+        }
+        else if (currentState == false)
+        {
+            currentState = true;
+        }
+    }
 }

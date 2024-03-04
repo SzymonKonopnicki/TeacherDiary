@@ -1,4 +1,6 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@rendermode InteractiveServer
+
+<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">TeacherDiary.Web</a>
     </div>
@@ -10,21 +12,57 @@
     <nav class="flex-column">
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Główna
             </NavLink>
         </div>
 
         <div class="nav-item px-3">
+            <NavLink class="nav-link" @onclick="() => expandSubNav = !expandSubNav">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Przegląd osób
+            </NavLink>
+
+            @if (expandSubNav)
+            {
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="persons">
+                        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Lista osób
+                    </NavLink>
+                </div>
+
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="personDetails">
+                        <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Sprawdź osobe
+                    </NavLink>
+                </div>
+
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="personCreate">
+                        <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Dodaj osobe
+                    </NavLink>
+                </div>
+
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="personEdit">
+                        <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Edytuj osobe
+                    </NavLink>
+                </div>
+            }
+        </div>
+
+        <div class="nav-item px-3">
             <NavLink class="nav-link" href="counter">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter
+                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Licznik
             </NavLink>
         </div>
 
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="weather">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Weather
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Pogoda
             </NavLink>
         </div>
     </nav>
 </div>
-
+@code
+{
+    private bool expandSubNav;
+}
