@@ -81,6 +81,17 @@ namespace TeacherDiary.WebApi.Services
         {
             var person = _mapper.Map<Person>(personCreateDto);
 
+
+            var personInDb = _dbContext.Persons
+                .Where(x => x.Email == person.Email)
+                .FirstOrDefault();
+
+
+            if (person.Email == personInDb.Email)
+            {
+                throw new Exception();
+            }
+
             _dbContext.Persons.Add(person);
 
             _dbContext.SaveChanges();
