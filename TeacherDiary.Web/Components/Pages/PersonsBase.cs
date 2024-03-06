@@ -7,7 +7,7 @@ namespace TeacherDiary.Web.Components.Pages
     public class PersonsBase : ComponentBase
     {
         [Inject]
-        public IProductService ProductService { get; set; }
+        public IPersonService ProductService { get; set; }
 
         public IEnumerable<PersonDto> Persons { get; set; }
 

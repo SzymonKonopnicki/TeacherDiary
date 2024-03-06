@@ -16,7 +16,7 @@ namespace TeacherDiary.WebApi.Controllers
     [ApiController]
     public class PersonController : ControllerBase
     {
-        private readonly IPersonService _personService;
+        public readonly IPersonService _personService;
 
         public PersonController(IPersonService personService)
         {

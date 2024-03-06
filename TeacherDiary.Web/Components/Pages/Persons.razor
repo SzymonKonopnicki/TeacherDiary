@@ -44,10 +44,10 @@ else
                 <th>@person.Comments</th>
                 <th>@person.TicketForUse.Name</th>
                 <th>
-                    <button class="btn btn-primary btn-sm">Podgląd</button>
-                    <button class="btn btn-success btn-sm">Dodaj usługe</button>
-                    <button class="btn btn-warning btn-sm">Edytuj</button>
-                    <button class="btn btn-danger btn-sm">Usuń</button>
+                    <a class="btn btn-primary btn-sm" href="/personDetails/@person.Name">Podgląd</a>
+                    <a class="btn btn-primary btn-sm" href="#">Dodaj usługe</a>
+                    <a class="btn btn-primary btn-sm" href="/personEdit/@person.Name">Edytuj</a>
+                    <a class="btn btn-primary btn-sm" href="#">Usuń</a>
                 </th>
             </tr>
         </tbody>

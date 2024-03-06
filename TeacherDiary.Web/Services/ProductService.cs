@@ -4,7 +4,7 @@ using TeacherDiary.WebApi.Database.Dtos;
 
 namespace TeacherDiary.Web.Services
 {
-    public class ProductService : IProductService
+    public class ProductService : IPersonService
     {
         private readonly HttpClient _httpClient;
 
@@ -13,7 +13,7 @@ namespace TeacherDiary.Web.Services
             _httpClient = httpClient;
         }
 
-        public async Task<PersonDto> GetPerson(string name)
+        public async Task<PersonDto> GetPersonByName(string name)
         {
             try
             {
@@ -28,7 +28,7 @@ namespace TeacherDiary.Web.Services
             }
         }
 
-        public async Task<PersonDto> GetPerson(int id)
+        public async Task<PersonDto> GetPersonById(int id)
         {
             try
             {

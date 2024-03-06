@@ -1,9 +1,23 @@
-﻿@page "/personDetails"
+﻿@page "/personDetails/{Name}"
 @rendermode InteractiveServer
 @inherits PersonDetailsBase
 
-<h3>PersonDetails</h3>
+<h3>Person Details:</h3>
 
-@code {
-
+@if (Person == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <ul class="list-group">
+        <li class="list-group-item">@Person.Name</li>
+        <li class="list-group-item">@Person.Surname</li>
+        <li class="list-group-item">@Person.Email</li>
+        <li class="list-group-item">@Person.Agreement</li>
+        <li class="list-group-item">@Person.Phone</li>
+        <li class="list-group-item">@Person.Comments</li>
+        <li class="list-group-item">@Person.TicketForUse.Name</li>
+        <li class="list-group-item">@Person.Comments</li>
+    </ul>
 }

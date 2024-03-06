@@ -2,10 +2,10 @@
 
 namespace TeacherDiary.Web.Interfaces
 {
-    public interface IProductService
+    public interface IPersonService
     {
         public Task<IEnumerable<PersonDto>> GetPersons();
-        public Task<PersonDto> GetPerson(string name);
-        public Task<PersonDto> GetPerson(int id);
+        public Task<PersonDto> GetPersonByName(string name);
+        public Task<PersonDto> GetPersonById(int id);
     }
 }
