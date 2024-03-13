@@ -11,13 +11,16 @@
 else
 {
     <ul class="list-group">
-        <li class="list-group-item">@Person.Name</li>
-        <li class="list-group-item">@Person.Surname</li>
-        <li class="list-group-item">@Person.Email</li>
-        <li class="list-group-item">@Person.Agreement</li>
-        <li class="list-group-item">@Person.Phone</li>
-        <li class="list-group-item">@Person.Comments</li>
-        <li class="list-group-item">@Person.TicketForUse.Name</li>
-        <li class="list-group-item">@Person.Comments</li>
+        <li class="list-group-item">Name: @Person.Name</li>
+        <li class="list-group-item">Surname: @Person.Surname</li>
+        <li class="list-group-item">Email: @Person.Email</li>
+        <li class="list-group-item">Agreement: @Person.Agreement</li>
+        <li class="list-group-item">Phone: @Person.Phone</li>
+        <li class="list-group-item">Comments: @Person.Comments</li>
+        <li class="list-group-item">Ticket: @Person.TicketForUse.Name</li>
+        <li class="list-group-item">Available Entry: @Person.TicketForUse.AvailableEntryQuantity</li>
+        <li class="list-group-item">Active: @Person.TicketForUse.Active</li>
+        <li class="list-group-item">Active to: @Person.TicketForUse.ValidTo</li>
+        <li class="list-group-item">Comments: @Person.Comments</li>
     </ul>
 }

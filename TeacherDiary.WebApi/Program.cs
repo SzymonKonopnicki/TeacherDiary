@@ -19,7 +19,7 @@ public class Program
         builder.Services.AddAutoMapper(typeof(Program));
 
         builder.Services.AddEndpointsApiExplorer();
-        //builder.Services.AddSwaggerGen();
+        builder.Services.AddSwaggerGen();
         builder.Services.AddDbContext<DiaryContext>(options =>
             options.UseSqlServer(connectionString: "Server=(localdb)\\mssqllocaldb;Database=DiaryDb;Trusted_Connection=True;"));
         builder.Services.AddScoped<DbSeeder>();
@@ -35,8 +35,8 @@ public class Program
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
-            //app.UseSwagger();
-            //app.UseSwaggerUI();
+            app.UseSwagger();
+            app.UseSwaggerUI();
 
             var scope = app.Services.CreateScope();
             var seeder = scope.ServiceProvider.GetRequiredService<DbSeeder>();
