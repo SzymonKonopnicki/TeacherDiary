@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System.Security.Cryptography;
 using TeacherDiary.Web.Interfaces;
 using TeacherDiary.Web.Models;
 using TeacherDiary.WebApi.Database.Dtos;
@@ -149,5 +150,23 @@ namespace TeacherDiary.Web.Services
             }
         }
 
+        public async Task RemoveTicket(string mail)
+        {
+            try
+            {
+                var query = $"?personMail={mail}";
+
+                var response = await _httpClient.DeleteAsync($"api/Assignment{query}");
+
+                _manager.NavigateTo(_manager.Uri, true);
+
+            }
+            catch (Exception)
+            {
+                //some log
+
+                throw new Exception();
+            }
+        }
     }
 }

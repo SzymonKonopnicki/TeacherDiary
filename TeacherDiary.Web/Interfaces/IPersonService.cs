@@ -11,6 +11,7 @@ namespace TeacherDiary.Web.Interfaces
         public Task EditPersonByMail(PersonUpdateDto personUpdateDto);
         public Task AddPerson(PersonCreateDto personCreateDto);
         public Task RemovePersonByName(string name);
+        public Task RemoveTicket(string mail);
         public Task AssignTicketToPerson(AssigmentModel assigmentModel);
 
     }

@@ -58,9 +58,10 @@ else
                         <th>@person.TicketForUse.Name</th>
                         <th>
                             <a class="btn btn-primary btn-sm" href="persons/@person.Email">Podgląd</a>
-                            <button class="btn btn-success btn-sm" @onclick="()=> TicketForPerson(person.Email)">Dodaj usługę</button>
                             <button class="btn btn-warning btn-sm" @onclick="()=> SwitchEditMode(person)">Edit</button>
                             <button class="btn btn-danger btn-sm" @onclick="()=> RemovePerson(person.Name)">Usuń</button>
+                            <button class="btn btn-success btn-sm" @onclick="()=> TicketForPerson(person.Email)">Dodaj usługę</button>
+                            <button class="btn btn-danger btn-sm" @onclick="()=> RemoveTicketFromPerson(person.Email)">Usuń usługę</button>
                         </th>
                     </tr>
                 </tbody>

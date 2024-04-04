@@ -116,7 +116,10 @@ namespace TeacherDiary.Web.Components.BaseClasses
         {
             ProductService.RemovePersonByName(name);
         }
-
+        protected void RemoveTicketFromPerson(string mail)
+        {
+            ProductService.RemoveTicket(mail);
+        }
         protected override async Task OnInitializedAsync()
         {
             Persons = await ProductService.GetPersons();
