@@ -18,7 +18,7 @@
 
         <div class="nav-item px-3">
             <NavLink class="nav-link" @onclick="() => expandSubNav = !expandSubNav">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Przegląd osób
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Menadżer
             </NavLink>
 
             @if (expandSubNav)
@@ -28,18 +28,12 @@
                         <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Lista osób
                     </NavLink>
                 </div>
-
                 <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="personCreate">
-                        <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Dodaj osobe
+                    <NavLink class="nav-link" href="tickets">
+                        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Lista Usług
                     </NavLink>
                 </div>
 
-                <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="personEdit">
-                        <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Edytuj osobe
-                    </NavLink>
-                </div>
             }
         </div>
 
@@ -56,6 +50,7 @@
         </div>
     </nav>
 </div>
+
 @code
 {
     private bool expandSubNav;

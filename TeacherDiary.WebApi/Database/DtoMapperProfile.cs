@@ -15,7 +15,7 @@ namespace TeacherDiary.WebApi.Database
 
             CreateMap<PersonUpdateDto, Person>().ReverseMap();
 
-            CreateMap<TicketDto, Ticket>().ReverseMap();
+            CreateMap<TicketDto, TicketForUse>().ReverseMap();
         }
     }
 }

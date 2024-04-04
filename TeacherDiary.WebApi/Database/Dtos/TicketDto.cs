@@ -2,8 +2,8 @@
 {
     public class TicketDto
     {
-        public required string Name { get; set; }
-        public required double Price { get; set; }
-        public required int EntryQuantity { get; set; }
+        public string Name { get; set; }
+        public double Price { get; set; }
+        public int EntryQuantity { get; set; }
     }
 }

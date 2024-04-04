@@ -9,7 +9,7 @@ namespace TeacherDiary.WebApi.Interfaces
     {
         public ICollection<PersonDto> Persons();
         public PersonDto PersonById(int id);
-        public PersonDto PersonByName(string name);
+        public PersonDto PersonByMail(string name);
         public PersonCreateDto PersonAdd(PersonCreateDto person);
         public void PersonRemoveById(int id);
         public void PersonRemoveByName(string name);

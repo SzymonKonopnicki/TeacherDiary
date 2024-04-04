@@ -20,7 +20,7 @@ namespace TeacherDiary.WebApi.Services
 
         public ICollection<TicketDto> Tickets()
         {
-            var tickets = _dbContext.Tickets.ToList();
+            var tickets = _dbContext.TicketsForUse.ToList();
 
             if (tickets == null) 
             {
@@ -34,7 +34,7 @@ namespace TeacherDiary.WebApi.Services
 
         public TicketDto TicketById(int id)
         {
-            var ticket = _dbContext.Tickets.FirstOrDefault(x => x.Id == id);
+            var ticket = _dbContext.TicketsForUse.FirstOrDefault(x => x.Id == id);
 
             if (ticket == null)
             {
@@ -48,7 +48,7 @@ namespace TeacherDiary.WebApi.Services
 
         public TicketDto TicketByName(string name)
         {
-            var ticket = _dbContext.Tickets.FirstOrDefault(x => x.Name.ToLower() == name.ToLower());
+            var ticket = _dbContext.TicketsForUse.FirstOrDefault(x => x.Name.ToLower() == name.ToLower());
 
             if (ticket == null)
             {
@@ -75,7 +75,7 @@ namespace TeacherDiary.WebApi.Services
         
         public void TicketRemoveById(int id)
         {
-            var ticet = _dbContext.Tickets.FirstOrDefault(x => x.Id == id);
+            var ticet = _dbContext.TicketsForUse.FirstOrDefault(x => x.Id == id);
 
             if (ticet == null)
             {
@@ -89,7 +89,7 @@ namespace TeacherDiary.WebApi.Services
 
         public void TicketRemoveByName(string name)
         {
-            var ticet = _dbContext.Tickets.FirstOrDefault(x => x.Name.ToLower() == name.ToLower());
+            var ticet = _dbContext.TicketsForUse.FirstOrDefault(x => x.Name.ToLower() == name.ToLower());
 
             if (ticet == null)
             {
@@ -103,7 +103,7 @@ namespace TeacherDiary.WebApi.Services
 
         public void TicketEdit(TicketDto ticketUpdateDto)
         {
-            var ticketDb = _dbContext.Tickets.Where(x => x.Name == ticketUpdateDto.Name).FirstOrDefault();
+            var ticketDb = _dbContext.TicketsForUse.Where(x => x.Name == ticketUpdateDto.Name).FirstOrDefault();
 
             if (ticketDb == null)
             {

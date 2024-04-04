@@ -60,16 +60,16 @@ namespace TeacherDiary.WebApi.Services
             return personDto;
         }
 
-        public PersonDto PersonByName(string name)
+        public PersonDto PersonByMail(string mail)
         {
             var person = _dbContext.Persons
                 .Include(x => x.TicketsForUse)
-                .Where(x => x.Name.ToLower() == name.ToLower())
+                .Where(x => x.Email.ToLower() == mail.ToLower())
                 .FirstOrDefault();
 
             if (person == null)
             {
-                throw new NotFoundException($"Osoba z imieniem: {name} nie została odnaleziona.");
+                throw new NotFoundException($"Osoba z mailem: {mail} nie została odnaleziona.");
             }
 
             var personDto = _mapper.Map<PersonDto>(person);
@@ -81,17 +81,17 @@ namespace TeacherDiary.WebApi.Services
         {
             var person = _mapper.Map<Person>(personCreateDto);
 
-
             var personInDb = _dbContext.Persons
                 .Where(x => x.Email == person.Email)
                 .FirstOrDefault();
 
-
-            if (person.Email == personInDb.Email)
+            if (personInDb != null)
             {
-                throw new Exception();
+                if (person.Email == personInDb.Email)
+                {
+                    throw new Exception();
+                }
             }
-
             _dbContext.Persons.Add(person);
 
             _dbContext.SaveChanges();
@@ -125,6 +125,7 @@ namespace TeacherDiary.WebApi.Services
             }
 
             _dbContext.Persons.Remove(person);
+            _dbContext.SaveChanges();
         }
 
         public void PersonEdit(PersonUpdateDto personUpdateDto)
@@ -138,16 +139,33 @@ namespace TeacherDiary.WebApi.Services
                 throw new NotFoundException($"Osoba z mailem: {personUpdateDto.Email} nie została odnaleziona.");
             }
 
-            personDb.Name = personUpdateDto.Name;
-            personDb.Surname = personUpdateDto.Surname;
-            personDb.Phone = personUpdateDto.Phone;
-            personDb.Agreement = personUpdateDto.Agreement;
-            personDb.Comments = personUpdateDto.Comments;
-
-            if (personUpdateDto.Email != null)
+            if (!string.IsNullOrWhiteSpace(personUpdateDto.Name))
             {
-                personDb.Email = personUpdateDto.Email;
+                personDb.Name = personUpdateDto.Name;
             }
+
+            if (!string.IsNullOrWhiteSpace(personUpdateDto.Surname))
+            {
+                personDb.Surname = personUpdateDto.Surname;
+            }
+
+            if (!string.IsNullOrWhiteSpace(personUpdateDto.Phone))
+            {
+                personDb.Phone = personUpdateDto.Phone;
+            }
+
+            if (personUpdateDto.Agreement != null)
+            {
+                personDb.Agreement = personUpdateDto.Agreement;
+            }
+
+            if (!string.IsNullOrWhiteSpace(personUpdateDto.Comments))
+            {
+                personDb.Comments = personUpdateDto.Comments;
+            }
+
+            _dbContext.Update(personDb);
+            _dbContext.SaveChanges();
         }
     }
 }

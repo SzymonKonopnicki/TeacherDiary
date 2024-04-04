@@ -1,0 +1,46 @@
+﻿@page "/ticket/{Name}"
+@using TeacherDiary.Web.Components.BaseClasses
+@inherits TicketDetailsBase
+
+<h3>TicketDetails</h3>
+
+@if (Ticket == null)
+{
+    <a>Brak danych.</a>
+}
+else
+{
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <h3>Lista usług</h3>
+                </div>
+                <div>
+                    <button class="btn btn-success btn">Dodaj usługe</button>
+                </div>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Nazwa</th>
+                        <th>Cena</th>
+                        <th>Wejścia</th>
+                        <th>Opcje</th>
+                    </tr>
+                </thead>
+                    <tbody>
+                        <tr>
+                            <th>@Ticket.Name</th>
+                            <th>@Ticket.Price PLN</th>
+                            <th>@Ticket.EntryQuantity</th>
+                            <th>
+                                <button class="btn btn-warning btn">Edytuj</button>
+                                <button class="btn btn-danger btn">Usuń</button>
+                            </th>
+                        </tr>
+                    </tbody>
+            </table>
+        </div>
+    </div>
+}

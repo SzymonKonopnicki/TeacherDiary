@@ -1,0 +1,51 @@
+﻿@page "/persons/{Mail}"
+@using TeacherDiary.Web.Components.BaseClasses
+@inherits PersonsDetailsBase
+@rendermode InteractiveServer
+
+
+<h3>PersonsDetails</h3>
+
+@if (PersonDto == null)
+{
+    <h3>Ładowanie...</h3>
+}
+else
+{
+    <div class="card">
+        <div class="card-body">
+
+            <div class="d-flex justify-content-between">
+                <div>
+                    <h3>Szczegóły</h3>
+                </div>
+            </div>
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Imie</th>
+                        <th>Nazwisko</th>
+                        <th>Mail</th>
+                        <th>Phone</th>
+                        <th>Agreement</th>
+                        <th>Comments</th>
+                        <th>Usługa</th>
+                        <th>Opcje</th>
+                    </tr>
+                </thead>
+                    <tbody>
+                        <tr>
+                            <th>@PersonDto.Name</th>
+                            <th>@PersonDto.Surname</th>
+                            <th>@PersonDto.Email</th>
+                            <th>@PersonDto.Phone</th>
+                            <th>@PersonDto.Agreement</th>
+                            <th>@PersonDto.Comments</th>
+                            <th>@PersonDto.TicketForUse.Name</th>
+                        </tr>
+                    </tbody>
+            </table>
+        </div>
+    </div>
+}

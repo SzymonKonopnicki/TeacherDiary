@@ -1,17 +1,9 @@
-﻿// Ignore Spelling: Api
-
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using TeacherDiary.WebApi.Database.Dtos;
-using TeacherDiary.WebApi.Database.Entities;
 using TeacherDiary.WebApi.Interfaces;
-using TeacherDiary.WebApi.Services;
 
 namespace TeacherDiary.WebApi.Controllers
 {
-    //TODO:
-    //1. Obsługa wyjątków
-    //2. Post ogarnąć
     [Route("api/[controller]")]
     [ApiController]
     public class PersonController : ControllerBase
@@ -39,10 +31,10 @@ namespace TeacherDiary.WebApi.Controllers
             return Ok(person);
         }
 
-        [HttpGet("{name}")]
-        public ActionResult<PersonDto> GetPersonByName([FromRoute] string name)
+        [HttpGet("{mail}")]
+        public ActionResult<PersonDto> GetPersonByMail([FromRoute] string mail)
         {
-            var person = _personService.PersonByName(name);
+            var person = _personService.PersonByMail(mail);
 
             return Ok(person);
         }

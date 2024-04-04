@@ -25,7 +25,7 @@ namespace TeacherDiary.WebApi.Database
                     _dbContext.AddRange(data);
                     _dbContext.SaveChanges();
                 }
-                if (!_dbContext.Tickets.Any())
+                if (!_dbContext.TicketsForUse.Any())
                 {
                     var data = BasicDataTicketInitialization();
                     _dbContext.AddRange(data);
@@ -61,25 +61,25 @@ namespace TeacherDiary.WebApi.Database
             return defaultList;
         }
 
-        private List<Ticket> BasicDataTicketInitialization()
+        private List<TicketForUse> BasicDataTicketInitialization()
         {
-            List<Ticket> defaultList = new List<Ticket>()
+            List<TicketForUse> defaultList = new List<TicketForUse>()
             {
-                new Ticket()
+                new TicketForUse()
                 {
                     Name = "Ticket S",
                     Price = 10.00,
                     EntryQuantity = 5
                 },
 
-                new Ticket()
+                new TicketForUse()
                 {
                     Name = "Ticket M",
                     Price = 15.00,
                     EntryQuantity = 10
                 },
 
-                new Ticket()
+                new TicketForUse()
                 {
                     Name = "Ticket L",
                     Price = 20.00,

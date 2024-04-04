@@ -22,7 +22,7 @@ namespace TeacherDiary.WebApi.Services
                 .Include(x => x.TicketsForUse)
                 .FirstOrDefault(x => x.Email.ToLower() == personMail.ToLower());
 
-            var ticket = _dbContext.Tickets
+            var ticket = _dbContext.TicketsForUse
                 .FirstOrDefault(x => x.Name.ToLower() == ticketName.ToLower());
 
             if (person == null || ticket == null) 

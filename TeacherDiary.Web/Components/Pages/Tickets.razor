@@ -1,0 +1,91 @@
+﻿@page "/tickets"
+@rendermode InteractiveServer
+@using Web.Components.BaseClasses
+@using WebApi.Database.Dtos
+@inherits TicketsBase
+
+
+<h3>Usługi</h3>
+
+<div class="card">
+    <div class="card-body">
+        Lorem Ipsum jest tekstem stosowanym jako przykładowy wypełniacz w przemyśle poligraficznym. Został po raz pierwszy użyty w XV w. przez nieznanego drukarza do wypełnienia tekstem próbnej książki. Pięć wieków później zaczął być używany przemyśle elektronicznym, pozostając praktycznie niezmienionym. Spopularyzował się w latach 60. XX w. wraz z publikacją arkuszy Letrasetu, zawierających fragmenty Lorem Ipsum, a ostatnio z zawierającym różne wersje Lorem Ipsum oprogramowaniem przeznaczonym do realizacji druków na komputerach osobistych, jak Aldus PageMaker
+    </div>
+</div>
+
+<br />
+
+@if(Tickets == null)
+{
+    <a>Loading...</a>
+}
+else
+{
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <h3>Lista usług</h3>
+                </div>
+                <div>
+                    <button class="btn btn-success btn">Dodaj usługe</button>
+                </div>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Nazwa</th>
+                        <th>Cena</th>
+                        <th>Wejścia</th>
+                        <th>Opcje</th>
+                    </tr>
+                </thead>
+                @foreach (var ticket in Tickets)
+                {
+                    <tbody>
+                        <tr>
+                            <th>@ticket.Name</th>
+                            <th>@ticket.Price PLN</th>
+                            <th>@ticket.EntryQuantity</th>
+                            <th>
+                                <a class="btn btn-primary btn-sm" href="ticket/@ticket.Name">Podgląd</a>
+                                <button class="btn btn-warning btn-sm" @onclick="()=> SwitchEditMode(ticket)">Edit</button>
+                                <button class="btn btn-danger btn">Usuń</button>
+                            </th>
+                        </tr>
+                    </tbody>
+                }
+            </table>
+        </div>
+    </div>
+}
+
+@if (IsEditMode)
+{
+    <div class="card mt-3">
+        <div class="card-body">
+            <h3>Edit: @Ticket.Name</h3>
+
+            <EditForm Model="@Ticket" OnValidSubmit="HandleValidTicketDtoSubmit">
+
+                <div class="mb-3">
+                    <InputText id="Name" class="form-control" placeholder="@Ticket.Name" @bind-Value="Ticket.Name" readonly />
+                    <ValidationMessage For="@(() => Ticket.Name)" />
+                </div>
+
+                <div class="mb-3">
+                    <InputText id="Price" class="form-control" placeholder="@Ticket.Price" @bind-Value="PriceAsString" />
+                    <ValidationMessage For="@(() => Ticket.Price)" />
+                </div>
+
+                <div class="mb-3">
+                    <InputText id="EntryQuantity" class="form-control" placeholder="@Ticket.EntryQuantity" @bind-Value="EntryQuantityAsString"/>
+                    <ValidationMessage For="@(() => Ticket.EntryQuantity)" />
+                </div>
+
+                <button class="btn btn-success btn-sm" type="submit">Akceptuj</button>
+
+            </EditForm>
+        </div>
+    </div>
+}
