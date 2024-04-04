@@ -51,66 +51,46 @@ namespace TeacherDiary.Web.Components.BaseClasses
 
         protected async Task HandleValidEditPersonSubmit()
         {
-            try
+
+            PersonUpdateDto.Email = PersonDto.Email;
+
+            if (string.IsNullOrWhiteSpace(PersonUpdateDto.Name))
             {
-                PersonUpdateDto.Email = PersonDto.Email;
-
-                if (string.IsNullOrWhiteSpace(PersonUpdateDto.Name))
-                {
-                    PersonUpdateDto.Name = PersonDto.Name;
-                }
-
-                if (string.IsNullOrWhiteSpace(PersonUpdateDto.Surname))
-                {
-                    PersonUpdateDto.Surname = PersonDto.Surname;
-                }
-
-                if (string.IsNullOrWhiteSpace(PersonUpdateDto.Phone))
-                {
-                    PersonUpdateDto.Phone = PersonDto.Phone;
-                }
-
-                if (PersonUpdateDto.Agreement == null)
-                {
-                    PersonUpdateDto.Agreement = PersonDto.Agreement;
-                }
-
-                if (string.IsNullOrWhiteSpace(PersonDto.Comments))
-                {
-                    PersonUpdateDto.Comments = PersonDto.Comments;
-                }
-
-                await ProductService.EditPersonByMail(PersonUpdateDto);
+                PersonUpdateDto.Name = PersonDto.Name;
             }
 
-            catch (Exception msg)
+            if (string.IsNullOrWhiteSpace(PersonUpdateDto.Surname))
             {
-                throw new Exception(msg.Message);
+                PersonUpdateDto.Surname = PersonDto.Surname;
             }
+
+            if (string.IsNullOrWhiteSpace(PersonUpdateDto.Phone))
+            {
+                PersonUpdateDto.Phone = PersonDto.Phone;
+            }
+
+            if (PersonUpdateDto.Agreement == null)
+            {
+                PersonUpdateDto.Agreement = PersonDto.Agreement;
+            }
+
+            if (string.IsNullOrWhiteSpace(PersonDto.Comments))
+            {
+                PersonUpdateDto.Comments = PersonDto.Comments;
+            }
+
+            await ProductService.EditPersonByMail(PersonUpdateDto);
         }
 
         protected async Task HandleValidAddPersonSubmit()
         {
-            try
-            {
-                ProductService.AddPerson(PersonCreateDto);
-            }
-            catch (Exception msg)
-            {
-                throw new Exception(msg.Message);
-            }
+            ProductService.AddPerson(PersonCreateDto);
+
         }
 
         protected async Task HandleValidAssigneTicketToPersonSubmit()
         {
-            try
-            {
-                ProductService.AssignTicketToPerson(AssigmentModel);
-            }
-            catch (Exception msg)
-            {
-                throw new Exception(msg.Message);
-            }
+             ProductService.AssignTicketToPerson(AssigmentModel);
         }
         protected void RemovePerson(string name)
         {

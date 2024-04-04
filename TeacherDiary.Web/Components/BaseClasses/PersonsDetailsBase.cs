@@ -16,15 +16,7 @@ namespace TeacherDiary.Web.Components.BaseClasses
 
         protected override async Task OnInitializedAsync()
         {
-            try
-            {
-                PersonDto = await ProductService.GetPersonByEmail(Mail);
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
+            PersonDto = await ProductService.GetPersonByEmail(Mail);
         }
 
     }

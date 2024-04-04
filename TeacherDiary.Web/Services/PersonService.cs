@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Azure;
+using Microsoft.AspNetCore.Components;
 using System.Security.Cryptography;
 using TeacherDiary.Web.Interfaces;
+using TeacherDiary.Web.Middlewares.Exceptions;
 using TeacherDiary.Web.Models;
 using TeacherDiary.WebApi.Database.Dtos;
 
@@ -19,153 +21,115 @@ namespace TeacherDiary.Web.Services
 
         public async Task<PersonDto> GetPersonByEmail(string mail)
         {
-            try
-            {
-                var response = await _httpClient.GetAsync($"api/person/{mail}");
 
+            var response = await _httpClient.GetAsync($"api/person/{mail}");
+
+            if (response.IsSuccessStatusCode)
+            {
                 return await response.Content.ReadFromJsonAsync<PersonDto>();
-
             }
-            catch (Exception msg)
+            else
             {
-                //some log
-
-                throw new Exception(msg.Message);
+                throw new NotFoundException();
             }
         }
 
         public async Task<PersonDto> GetPersonById(int id)
         {
-            try
-            {
+            var product = await _httpClient.GetFromJsonAsync<PersonDto>($"api/person/{id}");
 
-                var product = await _httpClient.GetFromJsonAsync<PersonDto>($"api/person/{id}");
-                return product;
-            }
-            catch (Exception)
+            if (product == null)
             {
-                //some log
-
-                throw new Exception();
+                throw new NotFoundException();
             }
+
+            return product;
         }
 
         public async Task<IEnumerable<PersonDto>> GetPersons()
         {
-            try
-            {
-                var products = await _httpClient.GetFromJsonAsync<IEnumerable<PersonDto>>("api/person");
-                return products;
-            }
-            catch (Exception )
-            {
-                //some log
+            var products = await _httpClient.GetFromJsonAsync<IEnumerable<PersonDto>>("api/person");
 
-                throw new Exception(); 
-            }       
+            if (products == null)
+            {
+                throw new NotFoundException();
+            }
+
+            return products;
         }
 
         public async Task EditPersonByMail(PersonUpdateDto personUpdateDto)
         {
-            try
-            {
-                var respond = await _httpClient.PutAsJsonAsync<PersonUpdateDto>("api/person", personUpdateDto);
+            var respond = await _httpClient.PutAsJsonAsync<PersonUpdateDto>("api/person", personUpdateDto);
 
-                if (respond.IsSuccessStatusCode)
-                {
-                    _manager.NavigateTo(_manager.Uri, true);
-                }
-                else
-                {
-                    respond.StatusCode.ToString();
-                    respond.Headers.ToString();
-                }
+            if (respond.IsSuccessStatusCode)
+            {
+                _manager.NavigateTo(_manager.Uri, true);
             }
-            catch (Exception)
+            else
             {
-                //some log
-
-                throw new Exception();
+                throw new NotFoundException();
             }
         }
 
         public async Task AddPerson(PersonCreateDto personCreateDto)
         {
-            try
-            {
-                var respond = await _httpClient.PostAsJsonAsync<PersonCreateDto>("api/person", personCreateDto);
-               
-                if (respond.IsSuccessStatusCode)
-                {
-                    _manager.NavigateTo(_manager.Uri, true);
-                }
-                else
-                {
-                    respond.StatusCode.ToString();
-                    respond.Headers.ToString();
-                }
-            }
-            catch (Exception)
-            {
-                //some log
+            var respond = await _httpClient.PostAsJsonAsync<PersonCreateDto>("api/person", personCreateDto);
 
-                throw new Exception();
+            if (respond.IsSuccessStatusCode)
+            {
+                _manager.NavigateTo(_manager.Uri, true);
+            }
+            else
+            {
+                throw new NotFoundException();
             }
         }
 
         public async Task RemovePersonByName(string name)
         {
-            try
-            {
-                var response = await _httpClient.DeleteAsync($"api/person/{name}");
+            var response = await _httpClient.DeleteAsync($"api/person/{name}");
 
+            if (response.IsSuccessStatusCode)
+            {
                 _manager.NavigateTo(_manager.Uri, true);
-
             }
-            catch (Exception)
-            {
-                //some log
-
-                throw new Exception();
+            else
+            { 
+                throw new NotFoundException(); 
             }
+
         }
 
         public async Task AssignTicketToPerson(AssigmentModel assigmentModel)
         {
-            try
+            var query = $"?personMail={assigmentModel.PersonMail}&ticketName={assigmentModel.TicketName}";
+
+            var respond = await _httpClient.PutAsync($"api/Assignment{query}", null);
+
+            if (respond.IsSuccessStatusCode)
             {
-                // Przygotuj dane jako parametry zapytania PUT
-                var query = $"?personMail={assigmentModel.PersonMail}&ticketName={assigmentModel.TicketName}";
-
-                // Wyślij zapytanie PUT z parametrami
-                var respond = await _httpClient.PutAsync($"api/Assignment{query}", null);
-
                 _manager.NavigateTo(_manager.Uri, true);
             }
-            catch (Exception)
+            else
             {
-                //some log
-
-                throw new Exception();
+                throw new NotFoundException();
             }
         }
 
         public async Task RemoveTicket(string mail)
         {
-            try
+            var query = $"?personMail={mail}";
+
+            var response = await _httpClient.DeleteAsync($"api/Assignment{query}");
+
+            if (response.IsSuccessStatusCode)
             {
-                var query = $"?personMail={mail}";
-
-                var response = await _httpClient.DeleteAsync($"api/Assignment{query}");
-
                 _manager.NavigateTo(_manager.Uri, true);
-
             }
-            catch (Exception)
+            else
             {
-                //some log
-
-                throw new Exception();
+                throw new NotFoundException();
             }
         }
     }

@@ -16,15 +16,7 @@ namespace TeacherDiary.Web.Components.BaseClasses
 
         protected override async Task OnInitializedAsync()
         {
-            try
-            {
-                Ticket = await TicketService.GetTicketByName(Name);
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
+            Ticket = await TicketService.GetTicketByName(Name);
         }
 
     }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using TeacherDiary.Web.Interfaces;
+using TeacherDiary.Web.Middlewares.Exceptions;
 using TeacherDiary.WebApi.Database.Dtos;
 
 namespace TeacherDiary.Web.Services
@@ -17,52 +18,39 @@ namespace TeacherDiary.Web.Services
 
         public async Task<TicketDto> GetTicketByName(string name)
         {
-            try
-            {
-                var ticket = await _httpClient.GetFromJsonAsync<TicketDto>($"/api/Ticket/{name}");
+            var ticket = await _httpClient.GetFromJsonAsync<TicketDto>($"/api/Ticket/{name}");
 
-                return ticket;
-            }
-            catch (Exception msg)
+            if (ticket == null)
             {
-                //some log
-
-                throw new Exception(msg.Message);
+                throw new NotFoundException();
             }
+
+            return ticket;
         }
 
         public async Task<IEnumerable<TicketDto>> GetTickets()
         {
-            try
+            var tickets = await _httpClient.GetFromJsonAsync<IEnumerable<TicketDto>>("/api/Ticket");
+            
+            if (tickets == null)
             {
-                var tickets = await _httpClient.GetFromJsonAsync<IEnumerable<TicketDto>>("/api/Ticket");
-
-                return tickets;
+                throw new NotFoundException();
             }
-            catch (Exception msg)
-            {
-                //some log
 
-                throw new Exception(msg.Message);
-            }
+            return tickets;
         }
 
         public async Task UpdateTicket(TicketDto ticketDto)
         {
-            try
-            {
-                var respond = await _httpClient.PutAsJsonAsync<TicketDto>($"api/ticket", ticketDto);
+            var respond = await _httpClient.PutAsJsonAsync<TicketDto>($"api/ticket", ticketDto);
 
-                if (respond.IsSuccessStatusCode)
-                {
-                    _manager.NavigateTo(_manager.Uri, true);
-                }
+            if (respond.IsSuccessStatusCode)
+            {
+                _manager.NavigateTo(_manager.Uri, true);
             }
-            catch (Exception)
+            else
             {
-                //some log
-
-                throw new Exception();
+                throw new NotFoundException();
             }
         }
     }
