@@ -6,11 +6,15 @@
 
 <h3>PersonsDetails</h3>
 
-@if (PersonDto == null)
+@* @if (PersonDto == null)
 {
     <h3>Ładowanie...</h3>
 }
 else
+{
+ *@  
+ 
+ @if(PersonDto != null)
 {
     <div class="card">
         <div class="card-body">
@@ -34,18 +38,20 @@ else
                         <th>Opcje</th>
                     </tr>
                 </thead>
-                    <tbody>
-                        <tr>
-                            <th>@PersonDto.Name</th>
-                            <th>@PersonDto.Surname</th>
-                            <th>@PersonDto.Email</th>
-                            <th>@PersonDto.Phone</th>
-                            <th>@PersonDto.Agreement</th>
-                            <th>@PersonDto.Comments</th>
-                            <th>@PersonDto.TicketForUse.Name</th>
-                        </tr>
-                    </tbody>
+                <tbody>
+                    <tr>
+                        <th>@PersonDto.Name</th>
+                        <th>@PersonDto.Surname</th>
+                        <th>@PersonDto.Email</th>
+                        <th>@PersonDto.Phone</th>
+                        <th>@PersonDto.Agreement</th>
+                        <th>@PersonDto.Comments</th>
+                        <th>@PersonDto.TicketForUse.Name</th>
+                    </tr>
+                </tbody>
             </table>
         </div>
     </div>
 }
+
+@* } *@

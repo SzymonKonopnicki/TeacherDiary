@@ -1,7 +1,7 @@
 ﻿namespace TeacherDiary.WebApi.Exceptions
 {
-    public class NotFoundException : Exception
+    public class Exception : Exception
     {
-        public NotFoundException(string message) : base() { }
+        public Exception(string message) : base() { }
     }
 }

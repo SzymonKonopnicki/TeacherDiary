@@ -1,8 +1,5 @@
-﻿using Azure;
-using Microsoft.AspNetCore.Components;
-using System.Security.Cryptography;
+﻿using Microsoft.AspNetCore.Components;
 using TeacherDiary.Web.Interfaces;
-using TeacherDiary.Web.Middlewares.Exceptions;
 using TeacherDiary.Web.Models;
 using TeacherDiary.WebApi.Database.Dtos;
 
@@ -30,7 +27,7 @@ namespace TeacherDiary.Web.Services
             }
             else
             {
-                throw new NotFoundException();
+                throw new Exception();
             }
         }
 
@@ -40,7 +37,7 @@ namespace TeacherDiary.Web.Services
 
             if (product == null)
             {
-                throw new NotFoundException();
+                throw new Exception();
             }
 
             return product;
@@ -52,7 +49,7 @@ namespace TeacherDiary.Web.Services
 
             if (products == null)
             {
-                throw new NotFoundException();
+                throw new Exception();
             }
 
             return products;
@@ -68,7 +65,7 @@ namespace TeacherDiary.Web.Services
             }
             else
             {
-                throw new NotFoundException();
+                throw new Exception();
             }
         }
 
@@ -82,7 +79,7 @@ namespace TeacherDiary.Web.Services
             }
             else
             {
-                throw new NotFoundException();
+                throw new Exception();
             }
         }
 
@@ -96,7 +93,7 @@ namespace TeacherDiary.Web.Services
             }
             else
             { 
-                throw new NotFoundException(); 
+                throw new Exception(); 
             }
 
         }
@@ -113,7 +110,7 @@ namespace TeacherDiary.Web.Services
             }
             else
             {
-                throw new NotFoundException();
+                throw new Exception();
             }
         }
 
@@ -129,7 +126,7 @@ namespace TeacherDiary.Web.Services
             }
             else
             {
-                throw new NotFoundException();
+                throw new Exception();
             }
         }
     }

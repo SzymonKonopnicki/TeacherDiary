@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
 using TeacherDiary.Web.Interfaces;
-using TeacherDiary.Web.Middlewares.Exceptions;
 using TeacherDiary.WebApi.Database.Dtos;
 
 namespace TeacherDiary.Web.Services
@@ -22,7 +21,7 @@ namespace TeacherDiary.Web.Services
 
             if (ticket == null)
             {
-                throw new NotFoundException();
+                throw new Exception();
             }
 
             return ticket;
@@ -34,7 +33,7 @@ namespace TeacherDiary.Web.Services
             
             if (tickets == null)
             {
-                throw new NotFoundException();
+                throw new Exception();
             }
 
             return tickets;
@@ -50,7 +49,7 @@ namespace TeacherDiary.Web.Services
             }
             else
             {
-                throw new NotFoundException();
+                throw new Exception();
             }
         }
     }
