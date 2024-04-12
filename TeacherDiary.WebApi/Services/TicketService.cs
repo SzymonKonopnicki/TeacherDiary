@@ -24,7 +24,7 @@ namespace TeacherDiary.WebApi.Services
 
             if (tickets == null) 
             {
-                throw new Exception($"Nie odnaleziono usług.");
+                throw new NotFoundException($"Nie odnaleziono usług.");
             }
 
             var ticketsDto = _mapper.Map<List<TicketDto>>(tickets);
@@ -38,7 +38,7 @@ namespace TeacherDiary.WebApi.Services
 
             if (ticket == null)
             {
-                throw new Exception($"Nie odnaleziono usługi.");
+                throw new NotFoundException($"Nie odnaleziono usługi.");
             }
 
             var ticketDto = _mapper.Map<TicketDto>(ticket);
@@ -52,7 +52,7 @@ namespace TeacherDiary.WebApi.Services
 
             if (ticket == null)
             {
-                throw new Exception($"Nie odnaleziono usługi.");
+                throw new NotFoundException($"Nie odnaleziono usługi.");
             }
 
             var ticketDto = _mapper.Map<TicketDto>(ticket);
@@ -79,7 +79,7 @@ namespace TeacherDiary.WebApi.Services
 
             if (ticet == null)
             {
-                throw new Exception($"Nie odnaleziono usługi.");
+                throw new NotFoundException($"Nie odnaleziono usługi.");
             }
 
             _dbContext.Remove(ticet);
@@ -93,7 +93,7 @@ namespace TeacherDiary.WebApi.Services
 
             if (ticet == null)
             {
-                throw new Exception($"Nie odnaleziono usługi.");
+                throw new NotFoundException($"Nie odnaleziono usługi.");
             }
 
             _dbContext.Remove(ticet);
@@ -107,7 +107,7 @@ namespace TeacherDiary.WebApi.Services
 
             if (ticketDb == null)
             {
-                throw new Exception($"Usługa o nazwie: {ticketUpdateDto.Name} nie została odnaleziona.");
+                throw new NotFoundException($"Usługa o nazwie: {ticketUpdateDto.Name} nie została odnaleziona.");
             }
 
             ticketDb.Name = ticketUpdateDto.Name;

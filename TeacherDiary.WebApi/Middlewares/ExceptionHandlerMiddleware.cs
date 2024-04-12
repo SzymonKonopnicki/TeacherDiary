@@ -11,7 +11,7 @@ namespace TeacherDiary.WebApi.Middlewares
 			{
 				await next.Invoke(context);
 			}
-            catch (Exception message)
+            catch (NotFoundException message)
             {
                 context.Response.StatusCode = 404;
 

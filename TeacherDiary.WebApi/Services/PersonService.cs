@@ -69,7 +69,7 @@ namespace TeacherDiary.WebApi.Services
 
             if (person == null)
             {
-                throw new Exception($"Osoba z mailem: {mail} nie została odnaleziona.");
+                throw new NotFoundException($"Osoba z mailem: {mail} nie została odnaleziona.");
             }
 
             var personDto = _mapper.Map<PersonDto>(person);
@@ -89,7 +89,7 @@ namespace TeacherDiary.WebApi.Services
             {
                 if (person.Email == personInDb.Email)
                 {
-                    throw new Exception();
+                    throw new NotFoundException("Coś poszło nie tak.");
                 }
             }
             _dbContext.Persons.Add(person);
@@ -107,7 +107,7 @@ namespace TeacherDiary.WebApi.Services
 
             if (person == null)
             {
-                throw new Exception($"Osoba z ID: {id} nie została odnaleziona.");
+                throw new NotFoundException($"Osoba z ID: {id} nie została odnaleziona.");
             }
 
             _dbContext.Persons.Remove(person);
@@ -121,7 +121,7 @@ namespace TeacherDiary.WebApi.Services
 
             if (person == null)
             {
-                throw new Exception($"Osoba z imieniem: {name} nie została odnaleziona.");
+                throw new NotFoundException($"Osoba z imieniem: {name} nie została odnaleziona.");
             }
 
             _dbContext.Persons.Remove(person);
@@ -136,7 +136,7 @@ namespace TeacherDiary.WebApi.Services
 
             if (personDb == null)
             {
-                throw new Exception($"Osoba z mailem: {personUpdateDto.Email} nie została odnaleziona.");
+                throw new NotFoundException($"Osoba z mailem: {personUpdateDto.Email} nie została odnaleziona.");
             }
 
             if (!string.IsNullOrWhiteSpace(personUpdateDto.Name))

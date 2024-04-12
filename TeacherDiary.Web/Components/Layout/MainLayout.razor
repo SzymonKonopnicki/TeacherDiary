@@ -11,15 +11,21 @@
         </div>
 
         <article class="content px-4">
-            <ErrorBoundary>
-                   @Body
+            <ErrorBoundary @ref="@errorBoundary" Context="Exception">
+                <ChildContent>
+                    @Body
+                </ChildContent>
+                <ErrorContent>
+                    <div class="alert bg-danger text-white alert-dismissible">
+                        @Exception.GetType() : @Exception.Message
+                        <button class="btn-close" @onclick="@errorBoundary.Recover"></button>
+                    </div>
+                </ErrorContent>
             </ErrorBoundary>
         </article>
     </main>
 </div>
 
-<div id="blazor-error-ui">
-    An unhandled error has occurred.
-    <a href="" class="reload">Reload</a>
-    <a class="dismiss">🗙</a>
-</div>
+@code{
+    private ErrorBoundary errorBoundary;
+}

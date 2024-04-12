@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
 using TeacherDiary.Web.Interfaces;
-using TeacherDiary.Web.Middlewares.Exceptions;
-using TeacherDiary.Web.Services;
 using TeacherDiary.WebApi.Database.Dtos;
 
 namespace TeacherDiary.Web.Components.BaseClasses
@@ -21,19 +19,7 @@ namespace TeacherDiary.Web.Components.BaseClasses
         public bool ExceptionSwitch { get; set; }
         protected override async Task OnInitializedAsync()
         {
-            try
-            {
-                PersonDto = await ProductService.GetPersonByEmail(Mail);
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
-            catch (Exception)
-            {
-                throw new Exception("bład ogólnny");
-            }
+            PersonDto = await ProductService.GetPersonByEmail(Mail);
         }
-
     }
 }

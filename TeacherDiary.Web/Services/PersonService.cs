@@ -27,7 +27,7 @@ namespace TeacherDiary.Web.Services
             }
             else
             {
-                throw new Exception();
+                throw new Exception("Nie odnaleziono.");
             }
         }
 

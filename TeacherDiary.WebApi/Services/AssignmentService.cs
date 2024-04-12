@@ -27,7 +27,7 @@ namespace TeacherDiary.WebApi.Services
 
             if (person == null || ticket == null) 
             {
-                throw new Exception("Nie odnaleziono spróbuj ponownie.");
+                throw new NotFoundException("Nie odnaleziono spróbuj ponownie.");
             }
 
             person.TicketsForUse = new TicketForUse()
@@ -52,7 +52,7 @@ namespace TeacherDiary.WebApi.Services
 
             if (person == null || person.TicketsForUse == null)
             {
-                throw new Exception("Nie odnaleziono spróbuj ponownie.");
+                throw new NotFoundException("Nie odnaleziono spróbuj ponownie.");
             }
 
             person.TicketsForUse = null;
