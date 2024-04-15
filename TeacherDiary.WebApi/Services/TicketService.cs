@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using TeacherDiary.WebApi.Database;
 using TeacherDiary.WebApi.Database.Dtos;
 using TeacherDiary.WebApi.Database.Entities;
@@ -94,6 +95,14 @@ namespace TeacherDiary.WebApi.Services
             if (ticet == null)
             {
                 throw new NotFoundException($"Nie odnaleziono usługi.");
+            }
+
+            var person = _dbContext.Persons
+                .FirstOrDefault(x => x.TicketForUseId == ticet.Id);
+            
+            if (person != null) 
+            {
+                person.TicketsForUse = null;
             }
 
             _dbContext.Remove(ticet);

@@ -10,7 +10,7 @@ namespace TeacherDiary.Web.Components.BaseClasses
     public class PersonsBase : ComponentBase
     {
         [Inject]
-        public IPersonService ProductService { get; set; }
+        public IPersonService PersonService { get; set; }
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
@@ -79,30 +79,30 @@ namespace TeacherDiary.Web.Components.BaseClasses
                 PersonUpdateDto.Comments = PersonDto.Comments;
             }
 
-            await ProductService.EditPersonByMail(PersonUpdateDto);
+            await PersonService.EditPersonByMail(PersonUpdateDto);
         }
 
         protected async Task HandleValidAddPersonSubmit()
         {
-            ProductService.AddPerson(PersonCreateDto);
+            PersonService.AddPerson(PersonCreateDto);
 
         }
 
         protected async Task HandleValidAssigneTicketToPersonSubmit()
         {
-             ProductService.AssignTicketToPerson(AssigmentModel);
+             PersonService.AssignTicketToPerson(AssigmentModel);
         }
         protected void RemovePerson(string name)
         {
-            ProductService.RemovePersonByName(name);
+            PersonService.RemovePersonByName(name);
         }
         protected void RemoveTicketFromPerson(string mail)
         {
-            ProductService.RemoveTicket(mail);
+            PersonService.RemoveTicket(mail);
         }
         protected override async Task OnInitializedAsync()
         {
-            Persons = await ProductService.GetPersons();
+            Persons = await PersonService.GetPersons();
         }
     }
 }

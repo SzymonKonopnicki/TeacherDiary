@@ -19,13 +19,21 @@ namespace TeacherDiary.Web.Components.BaseClasses
 
         [SupplyParameterFromForm]
         public string EntryQuantityAsString { get; set; }
+        
+        protected override async Task OnInitializedAsync()
+        {
+            Tickets = await TicketService.GetTickets();
+        }
 
         public void SwitchEditMode(TicketDto ticketDto)
         {
             Ticket = ticketDto;
             IsEditMode = !IsEditMode;
         }
-
+        protected async Task RemoveTicket(string ticketName)
+        {
+            await TicketService.RemoveTicket(ticketName);
+        }
         protected async Task HandleValidTicketDtoSubmit()
         {
             if (Ticket.Price != null)
@@ -46,11 +54,6 @@ namespace TeacherDiary.Web.Components.BaseClasses
             await TicketService.UpdateTicket(Ticket);
         }
 
-
-        protected override async Task OnInitializedAsync()
-        {
-            Tickets = await TicketService.GetTickets();
-        }
 
     }
 }

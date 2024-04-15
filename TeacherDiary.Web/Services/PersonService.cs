@@ -27,7 +27,7 @@ namespace TeacherDiary.Web.Services
             }
             else
             {
-                throw new Exception("Nie odnaleziono.");
+                throw new Exception("Akcja nie udała się. Spróbuj ponownie.");
             }
         }
 
@@ -37,7 +37,7 @@ namespace TeacherDiary.Web.Services
 
             if (product == null)
             {
-                throw new Exception();
+                throw new Exception("Akcja nie udała się. Spróbuj ponownie.");
             }
 
             return product;
@@ -49,7 +49,7 @@ namespace TeacherDiary.Web.Services
 
             if (products == null)
             {
-                throw new Exception();
+                throw new Exception("Akcja nie udała się. Spróbuj ponownie.");
             }
 
             return products;
@@ -65,7 +65,7 @@ namespace TeacherDiary.Web.Services
             }
             else
             {
-                throw new Exception();
+                throw new Exception("Akcja nie udała się. Spróbuj ponownie.");
             }
         }
 
@@ -79,7 +79,7 @@ namespace TeacherDiary.Web.Services
             }
             else
             {
-                throw new Exception();
+                throw new Exception("Akcja nie udała się. Spróbuj ponownie.");
             }
         }
 
@@ -92,8 +92,8 @@ namespace TeacherDiary.Web.Services
                 _manager.NavigateTo(_manager.Uri, true);
             }
             else
-            { 
-                throw new Exception(); 
+            {
+                throw new Exception("Akcja nie udała się. Spróbuj ponownie.");
             }
 
         }
@@ -110,7 +110,7 @@ namespace TeacherDiary.Web.Services
             }
             else
             {
-                throw new Exception();
+                throw new Exception("Akcja nie udała się. Spróbuj ponownie.");
             }
         }
 
@@ -126,7 +126,7 @@ namespace TeacherDiary.Web.Services
             }
             else
             {
-                throw new Exception();
+                throw new Exception("Akcja nie udała się. Spróbuj ponownie.");
             }
         }
     }

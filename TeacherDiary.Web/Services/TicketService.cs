@@ -21,7 +21,7 @@ namespace TeacherDiary.Web.Services
 
             if (ticket == null)
             {
-                throw new Exception();
+                throw new Exception("Akcja nie udała się. Spróbuj ponownie.");
             }
 
             return ticket;
@@ -33,7 +33,7 @@ namespace TeacherDiary.Web.Services
             
             if (tickets == null)
             {
-                throw new Exception();
+                throw new Exception("Akcja nie udała się. Spróbuj ponownie.");
             }
 
             return tickets;
@@ -49,8 +49,23 @@ namespace TeacherDiary.Web.Services
             }
             else
             {
-                throw new Exception();
+                throw new Exception("Akcja nie udała się. Spróbuj ponownie.");
             }
         }
+
+        public async Task RemoveTicket(string ticketName)
+        {
+            var respond = await _httpClient.DeleteAsync($"api/ticket/{ticketName}");
+
+            if (respond.IsSuccessStatusCode)
+            {
+                _manager.NavigateTo(_manager.Uri, true);
+            }
+            else
+            {
+                throw new Exception("Akcja nie udała się. Spróbuj ponownie.");
+            }
+        }
+
     }
 }

@@ -14,7 +14,6 @@ builder.Services.AddScoped(sp => new HttpClient
 
 builder.Services.AddScoped<IPersonService, PersonService>();
 builder.Services.AddScoped<ITicketService, TicketService>();
-builder.Services.AddSingleton<IMessageService, MessageService>();
 
 var app = builder.Build();
 

@@ -50,7 +50,7 @@ else
                             <th>
                                 <a class="btn btn-primary btn-sm" href="ticket/@ticket.Name">Podgląd</a>
                                 <button class="btn btn-warning btn-sm" @onclick="()=> SwitchEditMode(ticket)">Edit</button>
-                                <button class="btn btn-danger btn">Usuń</button>
+                                <button class="btn btn-danger btn" @onclick="()=> RemoveTicket(ticket.Name)">Usuń</button>
                             </th>
                         </tr>
                     </tbody>

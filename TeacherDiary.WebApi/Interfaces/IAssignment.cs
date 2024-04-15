@@ -3,6 +3,6 @@
     public interface IAssignment
     {
         public void AssignTicketToPerson(string personMail, string ticketName);
-        public void AssignTicketToPerson(string personMail);
+        public void RemoveTicketFromPerson(string personMail);
     }
 }

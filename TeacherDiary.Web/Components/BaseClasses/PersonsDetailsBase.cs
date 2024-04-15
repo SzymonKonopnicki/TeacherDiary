@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using TeacherDiary.Web.Interfaces;
+using TeacherDiary.Web.Services;
 using TeacherDiary.WebApi.Database.Dtos;
 
 namespace TeacherDiary.Web.Components.BaseClasses
@@ -13,13 +14,11 @@ namespace TeacherDiary.Web.Components.BaseClasses
         [Inject]
         public IPersonService ProductService { get; set; }
 
-        [Inject]
-        public IMessageService MessageService { get; set; }
-
         public bool ExceptionSwitch { get; set; }
         protected override async Task OnInitializedAsync()
         {
             PersonDto = await ProductService.GetPersonByEmail(Mail);
         }
+
     }
 }

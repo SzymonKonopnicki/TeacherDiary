@@ -44,7 +44,7 @@ namespace TeacherDiary.WebApi.Services
             _dbContext.SaveChanges();
         }
 
-        public void AssignTicketToPerson(string personMail)
+        public void RemoveTicketFromPerson(string personMail)
         {
             var person = _dbContext.Persons
                 .Include(x => x.TicketsForUse)

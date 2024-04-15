@@ -7,5 +7,7 @@ namespace TeacherDiary.Web.Interfaces
         public Task<IEnumerable<TicketDto>> GetTickets();
         public Task<TicketDto> GetTicketByName(string name);
         public Task UpdateTicket(TicketDto ticketDto);
+        public Task RemoveTicket(string ticketName);
+
     }
 }

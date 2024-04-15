@@ -25,7 +25,7 @@ namespace TeacherDiary.WebApi.Controllers
         [HttpDelete]
         public ActionResult TicketFromPerson([FromQuery] string personMail)
         {
-            _serviceAssigment.AssignTicketToPerson(personMail);
+            _serviceAssigment.RemoveTicketFromPerson(personMail);
 
             return Ok();
         }

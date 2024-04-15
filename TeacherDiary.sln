@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeacherDiary.WebApi", "Teac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeacherDiary.Tests", "TeacherDiary.Tests\TeacherDiary.Tests.csproj", "{564C3EF0-5972-4257-98B0-7304F1FFE0B2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeacherDiary.Web", "TeacherDiary.Web\TeacherDiary.Web.csproj", "{2EEB59D2-46F7-409E-8E17-F5670578637A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeacherDiary.Web", "TeacherDiary.Web\TeacherDiary.Web.csproj", "{C21CAEAB-03C0-4CAB-A0A8-79C769D03A56}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{564C3EF0-5972-4257-98B0-7304F1FFE0B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{564C3EF0-5972-4257-98B0-7304F1FFE0B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{564C3EF0-5972-4257-98B0-7304F1FFE0B2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2EEB59D2-46F7-409E-8E17-F5670578637A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2EEB59D2-46F7-409E-8E17-F5670578637A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2EEB59D2-46F7-409E-8E17-F5670578637A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2EEB59D2-46F7-409E-8E17-F5670578637A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C21CAEAB-03C0-4CAB-A0A8-79C769D03A56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C21CAEAB-03C0-4CAB-A0A8-79C769D03A56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C21CAEAB-03C0-4CAB-A0A8-79C769D03A56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C21CAEAB-03C0-4CAB-A0A8-79C769D03A56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
