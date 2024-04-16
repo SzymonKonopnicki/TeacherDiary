@@ -12,7 +12,11 @@ namespace TeacherDiary.Web.Components.BaseClasses
 
         public IEnumerable<TicketDto> Tickets { get; set; }
         public TicketDto Ticket { get; set; } = new TicketDto();
+        public TicketDto TicketCreate { get; set; } = new TicketDto();
         public bool IsEditMode { get; private set; }
+
+        protected internal bool IsAddedMode = false;
+
 
         [SupplyParameterFromForm]
         public string PriceAsString { get; set; }
@@ -23,6 +27,10 @@ namespace TeacherDiary.Web.Components.BaseClasses
         protected override async Task OnInitializedAsync()
         {
             Tickets = await TicketService.GetTickets();
+        }
+        protected void SwitchAddedMode()
+        {
+            IsAddedMode = !IsAddedMode;
         }
 
         public void SwitchEditMode(TicketDto ticketDto)
@@ -53,7 +61,11 @@ namespace TeacherDiary.Web.Components.BaseClasses
 
             await TicketService.UpdateTicket(Ticket);
         }
-
-
+        protected async Task HandleValidAddTicketDtoSubmit()
+        {
+            TicketCreate.EntryQuantity = Int32.Parse(EntryQuantityAsString);
+            TicketCreate.Price = Double.Parse(PriceAsString);
+            await TicketService.AddTicket(TicketCreate);                                                                                                    
+        }
     }
 }

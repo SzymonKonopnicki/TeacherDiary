@@ -1,4 +1,5 @@
 ﻿@page "/ticket/{Name}"
+@rendermode InteractiveServer
 @using TeacherDiary.Web.Components.BaseClasses
 @inherits TicketDetailsBase
 
@@ -17,7 +18,8 @@ else
                     <h3>Lista usług</h3>
                 </div>
                 <div>
-                    <button class="btn btn-success btn">Dodaj usługe</button>
+                    <button class="btn btn-warning">Edit</button>
+                    <button class="btn btn-danger" @onclick="()=> RemoveTicket(Ticket.Name)">Usuń</button>
                 </div>
             </div>
             <table class="table table-hover">
@@ -26,7 +28,6 @@ else
                         <th>Nazwa</th>
                         <th>Cena</th>
                         <th>Wejścia</th>
-                        <th>Opcje</th>
                     </tr>
                 </thead>
                     <tbody>
@@ -34,13 +35,10 @@ else
                             <th>@Ticket.Name</th>
                             <th>@Ticket.Price PLN</th>
                             <th>@Ticket.EntryQuantity</th>
-                            <th>
-                                <button class="btn btn-warning btn">Edytuj</button>
-                                <button class="btn btn-danger btn">Usuń</button>
-                            </th>
                         </tr>
                     </tbody>
             </table>
         </div>
     </div>
 }
+

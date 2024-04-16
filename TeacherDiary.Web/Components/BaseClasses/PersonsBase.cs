@@ -32,23 +32,24 @@ namespace TeacherDiary.Web.Components.BaseClasses
 
         protected internal bool IsTicketForPerson = false;
 
+        protected override async Task OnInitializedAsync()
+        {
+            Persons = await PersonService.GetPersons();
+        }
         protected void SwitchEditMode(PersonDto personDto)
         {
             PersonDto = personDto;
             IsEditMode = !IsEditMode;
         }
-
         protected void SwitchAddedMode()
         {
             IsAddedMode = !IsAddedMode;
         }
-
         protected void TicketForPerson(string email)
         {
             AssigmentModel.PersonMail = email;
             IsTicketForPerson = !IsTicketForPerson;
         }
-
         protected async Task HandleValidEditPersonSubmit()
         {
 
@@ -81,13 +82,11 @@ namespace TeacherDiary.Web.Components.BaseClasses
 
             await PersonService.EditPersonByMail(PersonUpdateDto);
         }
-
         protected async Task HandleValidAddPersonSubmit()
         {
             PersonService.AddPerson(PersonCreateDto);
 
         }
-
         protected async Task HandleValidAssigneTicketToPersonSubmit()
         {
              PersonService.AssignTicketToPerson(AssigmentModel);
@@ -99,10 +98,6 @@ namespace TeacherDiary.Web.Components.BaseClasses
         protected void RemoveTicketFromPerson(string mail)
         {
             PersonService.RemoveTicket(mail);
-        }
-        protected override async Task OnInitializedAsync()
-        {
-            Persons = await PersonService.GetPersons();
         }
     }
 }

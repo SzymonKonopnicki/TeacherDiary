@@ -28,7 +28,8 @@ else
                     <h3>Lista usług</h3>
                 </div>
                 <div>
-                    <button class="btn btn-success btn">Dodaj usługe</button>
+                    <button class="btn btn-success btn" @onclick="()=>SwitchAddedMode()">Dodaj usługe</button>
+
                 </div>
             </div>
             <table class="table table-hover">
@@ -58,34 +59,63 @@ else
             </table>
         </div>
     </div>
-}
 
-@if (IsEditMode)
-{
-    <div class="card mt-3">
-        <div class="card-body">
-            <h3>Edit: @Ticket.Name</h3>
+    @if (IsEditMode)
+    {
+        <div class="card mt-3">
+            <div class="card-body">
+                <h3>Edit: @Ticket.Name</h3>
 
-            <EditForm Model="@Ticket" OnValidSubmit="HandleValidTicketDtoSubmit">
+                <EditForm Model="@Ticket" OnValidSubmit="HandleValidTicketDtoSubmit">
 
-                <div class="mb-3">
-                    <InputText id="Name" class="form-control" placeholder="@Ticket.Name" @bind-Value="Ticket.Name" readonly />
-                    <ValidationMessage For="@(() => Ticket.Name)" />
-                </div>
+                    <div class="mb-3">
+                        <InputText id="Name" class="form-control" placeholder="@Ticket.Name" @bind-Value="Ticket.Name" readonly />
+                        <ValidationMessage For="@(() => Ticket.Name)" />
+                    </div>
 
-                <div class="mb-3">
-                    <InputText id="Price" class="form-control" placeholder="@Ticket.Price" @bind-Value="PriceAsString" />
-                    <ValidationMessage For="@(() => Ticket.Price)" />
-                </div>
+                    <div class="mb-3">
+                        <InputText id="Price" class="form-control" placeholder="@Ticket.Price" @bind-Value="PriceAsString" />
+                        <ValidationMessage For="@(() => Ticket.Price)" />
+                    </div>
 
-                <div class="mb-3">
-                    <InputText id="EntryQuantity" class="form-control" placeholder="@Ticket.EntryQuantity" @bind-Value="EntryQuantityAsString"/>
-                    <ValidationMessage For="@(() => Ticket.EntryQuantity)" />
-                </div>
+                    <div class="mb-3">
+                        <InputText id="EntryQuantity" class="form-control" placeholder="@Ticket.EntryQuantity" @bind-Value="EntryQuantityAsString" />
+                        <ValidationMessage For="@(() => Ticket.EntryQuantity)" />
+                    </div>
 
-                <button class="btn btn-success btn-sm" type="submit">Akceptuj</button>
+                    <button class="btn btn-success btn-sm" type="submit">Akceptuj</button>
 
-            </EditForm>
+                </EditForm>
+            </div>
         </div>
-    </div>
+    }
+    @if (IsAddedMode)
+    {
+        <div class="card mt-3">
+            <div class="card-body">
+                <h3>Dodaj</h3>
+
+                <EditForm Model="@TicketCreate" OnValidSubmit="HandleValidAddTicketDtoSubmit">
+
+                    <div class="mb-3">
+                        <InputText id="Name" class="form-control" placeholder="Ticket XL" @bind-Value="TicketCreate.Name" />
+                        <ValidationMessage For="@(() => TicketCreate.Name)" />
+                    </div>
+
+                    <div class="mb-3">
+                        <InputText id="Price" class="form-control" placeholder="19,99" @bind-Value="PriceAsString" />
+                        <ValidationMessage For="@(() => TicketCreate.Price)" />
+                    </div>
+
+                    <div class="mb-3">
+                        <InputText id="EntryQuantity" class="form-control" placeholder="15" @bind-Value="EntryQuantityAsString" />
+                        <ValidationMessage For="@(() => TicketCreate.EntryQuantity)" />
+                    </div>
+
+                    <button class="btn btn-success btn-sm" type="submit">Akceptuj</button>
+
+                </EditForm>
+            </div>
+        </div>
+    }
 }

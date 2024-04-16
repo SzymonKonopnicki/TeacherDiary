@@ -65,7 +65,7 @@ namespace TeacherDiary.WebApi.Services
         {
             var ticket = _mapper.Map<TicketForUse>(ticketCreateDto);
 
-            //_dbContext.Tickets.Add(ticket);
+            _dbContext.TicketsForUse.Add(ticket);
 
             _dbContext.SaveChanges();
 

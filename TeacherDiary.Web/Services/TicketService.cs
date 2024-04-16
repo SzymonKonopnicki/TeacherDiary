@@ -67,5 +67,18 @@ namespace TeacherDiary.Web.Services
             }
         }
 
+        public async Task AddTicket(TicketDto ticketDto)
+        {
+            var respond = await _httpClient.PostAsJsonAsync<TicketDto>($"api/ticket", ticketDto);
+
+            if (respond.IsSuccessStatusCode)
+            {
+                _manager.NavigateTo(_manager.Uri, true);
+            }
+            else
+            {
+                throw new Exception("Akcja nie udała się. Spróbuj ponownie.");
+            }
+        }
     }
 }

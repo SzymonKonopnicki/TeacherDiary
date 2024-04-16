@@ -8,6 +8,7 @@ namespace TeacherDiary.Web.Interfaces
         public Task<TicketDto> GetTicketByName(string name);
         public Task UpdateTicket(TicketDto ticketDto);
         public Task RemoveTicket(string ticketName);
+        public Task AddTicket(TicketDto ticketDto);
 
     }
 }

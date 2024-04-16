@@ -12,11 +12,23 @@ namespace TeacherDiary.Web.Components.BaseClasses
 
         [Inject]
         public ITicketService TicketService { get; set; }
+
         public TicketDto Ticket { get; set; }
+        public bool IsEditMode { get; private set; }
+
 
         protected override async Task OnInitializedAsync()
         {
             Ticket = await TicketService.GetTicketByName(Name);
+        }
+        //public void SwitchEditMode(TicketDto ticketDto)
+        //{
+        //    Ticket = ticketDto;
+        //    IsEditMode = !IsEditMode;
+        //}
+        protected async Task RemoveTicket(string ticketName)
+        {
+            await TicketService.RemoveTicket(ticketName);
         }
 
     }
